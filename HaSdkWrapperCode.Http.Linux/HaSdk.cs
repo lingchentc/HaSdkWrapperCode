@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace HaSdkWrapper
+namespace HaSdkWrapper.Http.Linux
 {
 
     public partial class NativeConstants
@@ -154,41 +154,9 @@ namespace HaSdkWrapper
         /// ERR_TOO_MUCH_FACE -> -46
         public const int ERR_TOO_MUCH_FACE = -46;
 
-        /// ERR_FACE_INCOMPLETE -> -47
-        public const int ERR_FACE_INCOMPLETE = -47;
-
-        /// ERR_ANGLE_PITCH -> -48
-        public const int ERR_ANGLE_PITCH = -48;
-
-        /// ERR_ANGLE_YAW -> -49
-        public const int ERR_ANGLE_YAW = -49;
-
-        /// ERR_ANGLE_ROLL -> -50
-        public const int ERR_ANGLE_ROLL = -50;
-
-        /// ERR_MOUTH_OPEN -> -51
-        public const int ERR_MOUTH_OPEN = -51;
-
-        /// ERR_YINYANG_FACE -> -52
-        public const int ERR_YINYANG_FACE = -52;
-
-        /// ERR_VISIBLE_TARGET -> -54
-        public const int ERR_VISIBLE_TARGET = -54;
-
-        /// ERR_INFRARED_TARGET -> -55
-        public const int ERR_INFRARED_TARGET = -55;
-
-        /// ERR_ABERRATION_TOO_BIG -> -56
-        public const int ERR_ABERRATION_TOO_BIG = -56;
-
-        /// ERR_REPLYCODE_FEATURE_VERSION -> -60
-        public const int ERR_REPLYCODE_FEATURE_VERSION = -60;
-
-        /// ERR_LACK_TWISTIMGE -> -61
-        public const int ERR_LACK_TWISTIMGE = -61;
-
         /// ERR_UNKNOWN -> -1000
         public const int ERR_UNKNOWN = -1000;
+
 
         /// MCAST_PORT -> 6100
         public const int MCAST_PORT = 6100;
@@ -1141,7 +1109,7 @@ namespace HaSdkWrapper
         /// unsigned short
         public ushort video_height;
     }
-  
+
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
     public struct AudioItem
     {
@@ -1200,7 +1168,6 @@ namespace HaSdkWrapper
         public int existImg;
 
         /// char[4]
-        
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 4)]
         public string imgFormat;
 
@@ -1278,25 +1245,8 @@ namespace HaSdkWrapper
         /// unsigned char
         public byte qValue;
 
-        public byte sourceOfReg;
-        public byte attributeOfReg;
-      
-        /// 活体
-        public byte living;
-        /// 枚举 
-        public byte hatColour;
-
-        public byte FaceAngle;
-        public byte FaceAngleFlat;
-        public byte res0;
-        public MatchType math_type;
-
-        public int wgCardNO;
-
-        public long wgCardNOLong;
-
-        /// char[100]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 100)]
+        /// char[123]
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 123)]
         public string resv;
 
         /// unsigned char*
@@ -1314,68 +1264,6 @@ namespace HaSdkWrapper
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 4)]
         public string modelFaceImgFmt;
         public IntPtr modelFaceImg;
-        /// char[80]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 80)]
-        public string resv1;
-
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 32)]
-        public string dev_id;
-        /// <summary>
-        /// 是否存在身份信息
-        /// </summary>
-        public int existIDCard;
-        /// <summary>
-        /// 身份证号
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 36)]
-        public string IDCardnumber;
-        /// <summary>
-        /// 姓名
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 43)]
-        public byte[] IDCardname;
-        /// <summary>
-        /// 性别
-        /// </summary>
-        public byte IDCardsex;
-        /// <summary>
-        /// 民族
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 19)]
-        public byte[] IDCardnational;
-        /// <summary>
-        /// 出生日期
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 17)]
-        public string IDCardbirth;
-        /// <summary>
-        /// 地址
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 103)]
-        public byte[] IDCardresidence_address;
-        /// <summary>
-        /// 签发机关
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 43)]
-        public byte[] IDCardorgan_issue;
-        /// <summary>
-        /// 有效期起始时间
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 17)]
-        public string IDCardvalid_date_start;
-
-        /// <summary>
-        ///有效期截止时间
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 17)]
-        public string IDCardvalid_date_end;
-        /// <summary>
-        /// 自定义字段
-        /// </summary>
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 68)]
-        public string userParam;
-       
-       
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
@@ -1398,19 +1286,9 @@ namespace HaSdkWrapper
 
         /// unsigned int
         public uint effectTime;
-        public uint effectStartTime;
-
-        public short version;
-     
-        public long wgCardNOLong;
-
-        public byte ScheduleMode;
-        public byte resv2;
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 68)]
-        public byte[] userParam;
 
         /// char[8188]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 8104)]
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 8188)]
         public byte[] resv;
     }
 
@@ -3202,30 +3080,30 @@ namespace HaSdkWrapper
     {
 
         /// Return Type: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_client_init")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_client_init")]
         public static extern int discover_client_init();
 
 
         /// Return Type: void
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_client_deinit")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_client_deinit")]
         public static extern void discover_client_deinit();
 
 
         /// Return Type: void
         ///cb: discover_ipscan_cb_t
         ///usr_param: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_reg_ipscan_cb")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_reg_ipscan_cb")]
         public static extern void discover_reg_ipscan_cb(discover_ipscan_cb_t cb, int usr_param);
 
 
         /// Return Type: void
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_ipscan")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_ipscan")]
         public static extern void discover_ipscan();
 
 
         /// Return Type: void
         ///ipscan: ipscan_t*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_print_ipscan")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_print_ipscan")]
         public static extern void discover_print_ipscan(ref ipscan_t ipscan);
 
 
@@ -3234,176 +3112,176 @@ namespace HaSdkWrapper
         ///ip: char*
         ///netmask: char*
         ///gateway: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "discover_setip_bymac")]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "discover_setip_bymac")]
         public static extern void discover_setip_bymac([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string mac, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string ip, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string netmask, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string gateway);
         //public static extern void discover_setip_bymac([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPArray, SizeConst = 16)] byte[] mac, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPArray, SizeConst = 16)] byte[] ip, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPArray, SizeConst = 16)] byte[] netmask, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPArray, SizeConst = 16)] byte[] gateway);
 
         /// Return Type: int
         ///mode: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetFastFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetFastFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetFastFace(int mode);
 
         /// Return Type: void
         ///cam: void*
         ///decodeFmt: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetStreamFmt", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetStreamFmt", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetStreamFmt(System.IntPtr cam, int decodeFmt);
 
         /// Return Type: void
         ///cam: void*
         ///hWnd: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StopStreamEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StopStreamEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StopStreamEx(System.IntPtr cam, System.IntPtr hWnd);
 
         /// Return Type: int
         ///cam: void*
         ///type: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetGatewayControlType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetGatewayControlType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetGatewayControlType(System.IntPtr cam, ref int type);
 
 
         /// Return Type: int
         ///cam: void*
         ///type: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetGatewayControlType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetGatewayControlType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetGatewayControlType(System.IntPtr cam, int type);
 
 
         /// Return Type: int
         ///cam: void*
         ///IoNum: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetAlarmIoNum", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetAlarmIoNum", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetAlarmIoNum(System.IntPtr cam, ref int IoNum);
 
 
         /// Return Type: int
         ///cam: void*
         ///IoNum: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAlarmIoNum", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAlarmIoNum", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetAlarmIoNum(System.IntPtr cam, int IoNum);
 
 
         /// Return Type: int
         ///cam: void*
         ///duration: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetAlarmDuration", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetAlarmDuration", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetAlarmDuration(System.IntPtr cam, ref int duration);
 
 
         /// Return Type: int
         ///cam: void*
         ///duration: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAlarmDuration", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAlarmDuration", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetAlarmDuration(System.IntPtr cam, int duration);
 
 
         /// Return Type: int
         ///cam: void*
         ///type: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWiegandType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWiegandType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWiegandType(System.IntPtr cam, ref int type);
 
 
         /// Return Type: int
         ///cam: void*
         ///type: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWiegandType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWiegandType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWiegandType(System.IntPtr cam, int type);
 
 
         /// Return Type: int
         ///cam: void*
         ///dcode: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWiegandDcode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWiegandDcode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWiegandDcode(System.IntPtr cam, ref int dcode);
 
 
         /// Return Type: int
         ///cam: void*
         ///dcode: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWiegandDcode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWiegandDcode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWiegandDcode(System.IntPtr cam, int dcode);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNo: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWiegandPublicCardNO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWiegandPublicCardNO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWiegandPublicCardNO(System.IntPtr cam, ref uint cardNo);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNo: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWiegandPublicCardNO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWiegandPublicCardNO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWiegandPublicCardNO(System.IntPtr cam, uint cardNo);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNoMin: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWiegandAutoCardNoMin", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWiegandAutoCardNoMin", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWiegandAutoCardNoMin(System.IntPtr cam, ref uint cardNoMin);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNoMin: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWiegandAutoCardNoMin", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWiegandAutoCardNoMin", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWiegandAutoCardNoMin(System.IntPtr cam, uint cardNoMin);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNoMax: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWiegandAutoCardNoMax", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWiegandAutoCardNoMax", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWiegandAutoCardNoMax(System.IntPtr cam, ref uint cardNoMax);
 
 
         /// Return Type: int
         ///cam: void*
         ///cardNoMax: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWiegandAutoCardNoMax", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWiegandAutoCardNoMax", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWiegandAutoCardNoMax(System.IntPtr cam, uint cardNoMax);
 
 
         /// Return Type: int
         ///cam: void*
         ///size: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceDetectMinRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceDetectMinRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceDetectMinRect(System.IntPtr cam, ref uint size);
 
 
         /// Return Type: int
         ///cam: void*
         ///size: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetFaceDetectMinRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetFaceDetectMinRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetFaceDetectMinRect(System.IntPtr cam, uint size);
 
         /// Return Type: int
         ///cam: void*
         ///brightness: unsigned char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetBrightness", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetBrightness", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetBrightness(System.IntPtr cam, System.IntPtr brightness);
 
 
         /// Return Type: int
         ///cam: void*
         ///brightness: unsigned char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetBrightness", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetBrightness", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetBrightness(System.IntPtr cam, byte brightness);
 
 
         /// Return Type: int
         ///cam: void*
         ///saturation: unsigned char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSaturation", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSaturation", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSaturation(System.IntPtr cam, System.IntPtr saturation);
         
         /// Return Type: int
         ///cam: void*
         ///saturation: unsigned char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetSaturation", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetSaturation", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetSaturation(System.IntPtr cam, byte saturation);
         
         /// Return Type: int
@@ -3412,7 +3290,7 @@ namespace HaSdkWrapper
         ///ip: char*
         ///port: int*
         ///resv: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetServerSdkParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetServerSdkParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetServerSdkParam(System.IntPtr cam, ref int enable, System.IntPtr ip, ref int port, System.IntPtr resv);
         
         /// Return Type: int
@@ -3421,7 +3299,7 @@ namespace HaSdkWrapper
         ///ip: char*
         ///port: int
         ///resv: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetServerSdkParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetServerSdkParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetServerSdkParam(System.IntPtr cam, int enable, System.IntPtr ip, int port, System.IntPtr resv);
 
     }
@@ -3433,24 +3311,24 @@ namespace HaSdkWrapper
 
 
         /// Return Type: void
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Init", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Init", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_Init();
 
 
         /// Return Type: void
         ///maxCamNum: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_InitEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_InitEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_InitEx(uint maxCamNum);
 
 
         /// Return Type: int
         ///faceModel: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_InitFaceModel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_InitFaceModel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_InitFaceModel([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string faceModel);
 
 
         /// Return Type: void
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeInit", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DeInit", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_DeInit();
 
     }
@@ -3461,7 +3339,7 @@ namespace HaSdkWrapper
         /// Return Type: void
         ///cb: HA_ConnectEventCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegConnectEventCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegConnectEventCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegConnectEventCb(HA_ConnectEventCb_t cb, int usrParam);
 
 
@@ -3469,14 +3347,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_ConnectEventCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegConnectEventCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegConnectEventCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegConnectEventCbEx(IntPtr cam, HA_ConnectEventCb_t cb, int usrParam);
 
 
         /// Return Type: void
         ///cb: HA_LiveStreamCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegLiveStreamCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegLiveStreamCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegLiveStreamCb(HA_LiveStreamCb_t cb, int usrParam);
 
 
@@ -3484,14 +3362,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_LiveStreamCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegLiveStreamCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegLiveStreamCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegLiveStreamCbEx(IntPtr cam, HA_LiveStreamCb_t cb, int usrParam);
 
 
         /// Return Type: void
         ///cb: HA_DataReadCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegDataReadCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegDataReadCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegDataReadCb(HA_DataReadCb_t cb, int usrParam);
 
 
@@ -3499,7 +3377,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_DataReadCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegDataReadCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegDataReadCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegDataReadCbEx(IntPtr cam, HA_DataReadCb_t cb, int usrParam);
 
 
@@ -3507,22 +3385,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_FaceRecoCb_t
         ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegFaceRecoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegFaceRecoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegFaceRecoCb(IntPtr cam, HA_FaceRecoCb_t cb, System.IntPtr usrParam);
-        /// <summary>
-        /// 注册Gpio
-        /// </summary>
-        /// <param name="cam"></param>
-        /// <param name="cb"></param>
-        /// <param name="usrParam"></param>
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegGpioInputCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern void HA_RegGpioInputCb(IntPtr cam, HA_GpioInputCb_t cb, System.IntPtr usrParam);
 
 
         /// Return Type: void
         ///cb: discover_ipscan_cb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegDiscoverIpscanCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegDiscoverIpscanCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegDiscoverIpscanCb(discover_ipscan_cb_t cb, int usrParam);
 
 
@@ -3530,7 +3400,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_OfflineFeeData_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegOfflineDataCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegOfflineDataCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegOfflineDataCb(IntPtr cam, HA_OfflineFeeData_t cb, int usrParam);
 
 
@@ -3538,14 +3408,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_OfflineQueriedEntryInfoCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegQueryEntryPlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegQueryEntryPlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegQueryEntryPlateInfoCb(IntPtr cam, HA_OfflineQueriedEntryInfoCb_t cb, int usrParam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///plate: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryOfflineEntryTimeByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryOfflineEntryTimeByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_QueryOfflineEntryTimeByPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string plate);
 
 
@@ -3557,7 +3427,7 @@ namespace HaSdkWrapper
         ///pPlateOrVehicleType: void*
         ///pCount: int*
         ///pMoneyTotal: float*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryOfflineFeeDataCountAndMoney", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryOfflineFeeDataCountAndMoney", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryOfflineFeeDataCountAndMoney(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, int queryStyle, System.IntPtr pPlateOrVehicleType, ref int pCount, ref float pMoneyTotal);
 
 
@@ -3569,13 +3439,13 @@ namespace HaSdkWrapper
         ///pPlateOrVehicleType: void*
         ///startPos: int
         ///endPos: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryOfflineFeeDataByPage", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryOfflineFeeDataByPage", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryOfflineFeeDataByPage(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, int queryStyle, System.IntPtr pPlateOrVehicleType, int startPos, int endPos);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ClearOfflneFeeData", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ClearOfflneFeeData", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ClearOfflneFeeData(IntPtr cam);
 
 
@@ -3583,12 +3453,12 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_OfflineFeeDataQueriedByPageCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegQueryOfflineFeeDataByPageCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegQueryOfflineFeeDataByPageCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegQueryOfflineFeeDataByPageCb(IntPtr cam, HA_OfflineFeeDataQueriedByPageCb_t cb, int usrParam);
 
 
         /// Return Type: void
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DiscoverIpscan", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DiscoverIpscan", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_DiscoverIpscan();
 
 
@@ -3597,25 +3467,25 @@ namespace HaSdkWrapper
         ///ip: char*
         ///netmask: char*
         ///gateway: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetIpBymac", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetIpBymac", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetIpBymac([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string mac, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string ip, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string netmask, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string gateway);
 
 
         /// Return Type: void
         ///camType: CAM_TYPE
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetCamType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetCamType", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetCamType(CAM_TYPE camType);
 
 
         /// Return Type: void
         ///charEncode: CHAR_ENCODE
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetCharEncode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetCharEncode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetCharEncode(CHAR_ENCODE charEncode);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Connected", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Connected", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.I1)]
         public static extern bool HA_Connected(IntPtr cam);
 
@@ -3626,7 +3496,7 @@ namespace HaSdkWrapper
         ///usrName: char*
         ///password: char*
         ///errorNum: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Connect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Connect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern System.IntPtr HA_Connect([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string ip, ushort port, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string usrName, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string password, ref int errorNum);
 
 
@@ -3638,7 +3508,7 @@ namespace HaSdkWrapper
         ///errorNum: int*
         ///channel: unsigned int
         ///autoReconn: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ConnectEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ConnectEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern System.IntPtr HA_ConnectEx([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string ip, ushort port, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string usrName, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string password, ref int errorNum, uint channel, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] bool autoReconn);
 
 
@@ -3648,20 +3518,20 @@ namespace HaSdkWrapper
         ///passwordOld: char*
         ///usrNameNew: char*
         ///passwordNew: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyUserNamePasswd", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyUserNamePasswd", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyUserNamePasswd(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string usrNameOld, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string passwordOld, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string usrNameNew, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string passwordNew);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DisConnect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DisConnect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_DisConnect(IntPtr cam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///hWnd: HWND->HWND__*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StartStream", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StartStream", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StartStream(IntPtr cam, System.IntPtr hWnd);
 
 
@@ -3670,20 +3540,20 @@ namespace HaSdkWrapper
         ///hWnd: HWND->HWND__*
         ///cb: HA_DecodeImageCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StartStreamEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StartStreamEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StartStreamEx(IntPtr cam, System.IntPtr hWnd, HA_DecodeImageCb_t cb, int usrParam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StopStream", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StopStream", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StopStream(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///fileName: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_CapImgToFile", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_CapImgToFile", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_CapImgToFile(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string fileName);
 
 
@@ -3692,14 +3562,15 @@ namespace HaSdkWrapper
         ///buffer: unsigned char*
         ///bufferSize: int
         ///len: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_CapImgToBuffer", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_CapImgToBuffer", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_CapImgToBuffer(IntPtr cam, System.IntPtr buffer, int bufferSize, ref int len);
+
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Trigger", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Trigger", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_Trigger(IntPtr cam, int usrParam);
 
 
@@ -3707,7 +3578,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///allowList: HA_AllowList*
         ///listNum: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetWhiteList(IntPtr cam, ref HA_AllowList allowList, int listNum);
 
 
@@ -3716,7 +3587,7 @@ namespace HaSdkWrapper
         ///allowList: HA_AllowList*
         ///maxNum: int
         ///listNum: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWhiteList(IntPtr cam, ref HA_AllowList allowList, int maxNum, ref int listNum);
 
 
@@ -3727,34 +3598,34 @@ namespace HaSdkWrapper
         ///allowList: HA_AllowList*
         ///listNum: int*
         ///totalPages: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWhiteListByPage", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWhiteListByPage", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWhiteListByPage(IntPtr cam, int pageNum, int recordNumPerPage, ref HA_AllowList allowList, ref int listNum, ref int totalPages);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ClearWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ClearWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ClearWhiteList(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///wList: HA_AllowList*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_InsertWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_InsertWhiteList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_InsertWhiteList(IntPtr cam, ref HA_AllowList wList);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///wList: HA_AllowList*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_UpdateWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_UpdateWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_UpdateWhiteListByPlate(IntPtr cam, ref HA_AllowList wList);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///plate: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeleteWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DeleteWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_DeleteWhiteListByPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string plate);
 
 
@@ -3762,20 +3633,20 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///plate: char*
         ///wList: HA_AllowList*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SearchWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SearchWhiteListByPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SearchWhiteListByPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string plate, ref HA_AllowList wList);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetWhiteListCount", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetWhiteListCount", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetWhiteListCount(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///version: VERSION*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSystemVersion", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSystemVersion", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSystemVersion(IntPtr cam, ref VERSION version);
 
 
@@ -3784,133 +3655,133 @@ namespace HaSdkWrapper
         ///version: VERSION*
         ///usrName: char*
         ///password: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSystemVersionEX", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSystemVersionEX", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSystemVersionEX(IntPtr cam, ref VERSION version, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string usrName, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string password);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///cfg: config_gateway*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetGatewayConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetGatewayConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetGatewayConfig(IntPtr cam, ref config_gateway cfg);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///cfg: FaceSystemConfig*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceSystemCfg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceSystemCfg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceSystemCfg(IntPtr cam, ref FaceSystemConfig cfg);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///cfg: config_gateway*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetGatewayConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetGatewayConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetGatewayConfig(IntPtr cam, ref config_gateway cfg);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///cfg: FaceSystemConfig*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetFaceSystemCfg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetFaceSystemCfg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetFaceSystemCfg(IntPtr cam, ref FaceSystemConfig cfg);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///score: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMatchScore", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMatchScore", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMatchScore(IntPtr cam, ref int score);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///score: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMatchScore", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetMatchScore", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetMatchScore(IntPtr cam, int score);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///delay: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetOutputDelay", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetOutputDelay", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetOutputDelay(IntPtr cam, ref int delay);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///delay: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetOutputDelay", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetOutputDelay", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetOutputDelay(IntPtr cam, int delay);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///ctl: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetOutputCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetOutputCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetOutputCtl(IntPtr cam, ref int ctl);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///ctl: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetOutputCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetOutputCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetOutputCtl(IntPtr cam, int ctl);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///level: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMatchLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMatchLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMatchLevel(IntPtr cam, ref int level);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///level: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMatchLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetMatchLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetMatchLevel(IntPtr cam, int level);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///enable: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMatchEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMatchEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMatchEnable(IntPtr cam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] ref bool enable);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///enable: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMatchEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetMatchEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetMatchEnable(IntPtr cam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] bool enable);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///enable: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetDebugEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetDebugEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetDebugEnable(IntPtr cam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] ref bool enable);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///enable: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetDebugEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetDebugEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetDebugEnable(IntPtr cam, [System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)] bool enable);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///offlineFlag: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetGatewayOfflineMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetGatewayOfflineMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetGatewayOfflineMode(IntPtr cam, ref int offlineFlag);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///offlineFlag: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetGatewayOfflineMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetGatewayOfflineMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetGatewayOfflineMode(IntPtr cam, int offlineFlag);
 
 
@@ -3918,21 +3789,21 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_PlateInfoCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetOfflinePlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetOfflinePlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetOfflinePlateInfoCb(IntPtr cam, HA_PlateInfoCb_t cb, int usrParam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///transFlag: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetTransfferOffline", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetTransfferOffline", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetTransfferOffline(IntPtr cam, int transFlag);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///transFlag: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetTransfferOffline", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetTransfferOffline", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetTransfferOffline(IntPtr cam, ref int transFlag);
 
 
@@ -3940,7 +3811,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///index: int
         ///state: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetIOOutput", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetIOOutput", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetIOOutput(IntPtr cam, int index, int state);
 
 
@@ -3948,14 +3819,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///index: int
         ///timeDuration: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetIOOutputAuto", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetIOOutputAuto", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetIOOutputAuto(IntPtr cam, int index, int timeDuration);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///open: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetAlarm(IntPtr cam, int open);
 
 
@@ -3963,7 +3834,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///index: int
         ///state: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetIOState", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetIOState", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetIOState(IntPtr cam, int index, int state);
 
 
@@ -3971,21 +3842,21 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///index: int
         ///timeDuration: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAlarmAuto", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAlarmAuto", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetAlarmAuto(IntPtr cam, int index, int timeDuration);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///inout: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_WhiteListAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_WhiteListAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_WhiteListAlarm(IntPtr cam, int inout, int onoff);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///inout: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_BlackListAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_BlackListAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_BlackListAlarm(IntPtr cam, int inout, int onoff);
 
 
@@ -3994,7 +3865,7 @@ namespace HaSdkWrapper
         ///port: int
         ///inout: int
         ///resv: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetGPIO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetGPIO", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetGPIO(IntPtr cam, int port, int inout, int onoff, System.IntPtr resv);
 
 
@@ -4002,14 +3873,14 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///audio: char*
         ///len: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_PlayAudio", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_PlayAudio(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] byte[] audio, int len);
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_PlayAudio", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_PlayAudio(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string audio, int len);
 
 
         /// Return Type: int
         ///cb: HA_ReadTSerialCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegReadTSerialCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegReadTSerialCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_RegReadTSerialCb(HA_ReadTSerialCb_t cb, int usrParam);
 
 
@@ -4017,7 +3888,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_ReadTSerialCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegReadTSerialCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegReadTSerialCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_RegReadTSerialCbEx(IntPtr cam, HA_ReadTSerialCb_t cb, int usrParam);
 
 
@@ -4025,7 +3896,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_ReadGpioCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegReadGpioCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegReadGpioCbEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_RegReadGpioCbEx(IntPtr cam, HA_ReadGpioCb_t cb, int usrParam);
 
 
@@ -4036,7 +3907,7 @@ namespace HaSdkWrapper
         ///parity: int*
         ///databit: int*
         ///stopbit: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetTSerial(IntPtr cam, int index, ref int baudrate, ref int parity, ref int databit, ref int stopbit);
 
 
@@ -4047,7 +3918,7 @@ namespace HaSdkWrapper
         ///parity: int
         ///databit: int
         ///stopbit: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_OpenTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_OpenTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_OpenTSerial(IntPtr cam, int index, int baudrate, int parity, int databit, int stopbit);
 
 
@@ -4056,61 +3927,61 @@ namespace HaSdkWrapper
         ///index: int
         ///data: char*
         ///size: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_WriteTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_WriteTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_WriteTSerial(IntPtr cam, int index, IntPtr data, int size);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///index: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_CloseTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_CloseTSerial", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_CloseTSerial(IntPtr cam, int index);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///ctrl: CamCtrl*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetCamParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetCamParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetCamParam(IntPtr cam, ref CamCtrl ctrl);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RebootCam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RebootCam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RebootCam(IntPtr cam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SaveCamParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SaveCamParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SaveCamParam(IntPtr cam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///ctrl: CamCtrlAutoCtrl*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAutoCtrl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAutoCtrl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetAutoCtrl(IntPtr cam, ref CamCtrlAutoCtrl ctrl);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///en: CamCtrlImageEnhance*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetImageEnhance", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetImageEnhance", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetImageEnhance(IntPtr cam, ref CamCtrlImageEnhance en);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///time: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetSysTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetSysTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetSysTime(IntPtr cam, int time);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///time: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSysTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSysTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSysTime(IntPtr cam, ref int time);
 
 
@@ -4122,7 +3993,7 @@ namespace HaSdkWrapper
         ///hour: int
         ///minute: int
         ///second: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetSysTimeEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetSysTimeEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetSysTimeEx(IntPtr cam, int year, int month, int day, int hour, int minute, int second);
 
 
@@ -4134,14 +4005,14 @@ namespace HaSdkWrapper
         ///hour: int*
         ///minute: int*
         ///second: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSysTimeEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSysTimeEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSysTimeEx(IntPtr cam, ref int year, ref int month, ref int day, ref int hour, ref int minute, ref int second);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///q: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetJpegQ", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetJpegQ", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetJpegQ(IntPtr cam, int q);
 
 
@@ -4150,89 +4021,89 @@ namespace HaSdkWrapper
         ///w: int
         ///h: int
         ///bitrate: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetH264", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetH264", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetH264(IntPtr cam, int w, int h, int bitrate);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomUpStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomUpStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomUpStart(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomUpStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomUpStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomUpStop(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomDownStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomDownStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomDownStart(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomDownStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomDownStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomDownStop(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusUpStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusUpStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusUpStart(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusUpStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusUpStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusUpStop(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusDownStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusDownStart", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusDownStart(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusDownStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusDownStop", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusDownStop(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomUp", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomUp", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomUp(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ZoomDown", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ZoomDown", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ZoomDown(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusUp", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusUp", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusUp(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusDown", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusDown", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusDown(IntPtr cam);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_LiveStreamCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_LiveStreamCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_LiveStreamCtl(IntPtr cam, int flag);
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///sn: char*
         ///SNSize: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetCustomerSN", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetCustomerSN", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetCustomerSN(IntPtr cam, System.IntPtr sn, ref int SNSize);
 
 
@@ -4240,16 +4111,16 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///auth: char*
         ///size: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_WriteCustomerAuthCode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_WriteCustomerAuthCode(IntPtr cam, byte[] auth, int size);
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_WriteCustomerAuthCode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_WriteCustomerAuthCode(IntPtr cam, System.IntPtr auth, int size);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///auth: char*
         ///size: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ReadCustomerAuthCode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_ReadCustomerAuthCode(IntPtr cam, [Out] byte[] auth, ref int size);
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ReadCustomerAuthCode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_ReadCustomerAuthCode(IntPtr cam, System.IntPtr auth, ref int size);
 
 
         /// Return Type: int
@@ -4258,7 +4129,7 @@ namespace HaSdkWrapper
         ///dwHeight: unsigned int
         ///pJpgBuffer: unsigned char*
         ///dwJpgSize: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_EncodeJpeg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_EncodeJpeg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_EncodeJpeg([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pRgbBuffer, uint dwWidth, uint dwHeight, System.IntPtr pJpgBuffer, ref uint dwJpgSize);
 
 
@@ -4268,38 +4139,38 @@ namespace HaSdkWrapper
         ///desRgb: unsigned char*
         ///jpgW: unsigned int*
         ///jpgH: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DecodeJpeg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DecodeJpeg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_DecodeJpeg([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string srcJpg, int srcJpgLen, System.IntPtr desRgb, ref uint jpgW, ref uint jpgH);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///sFileName: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SaveRealDate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SaveRealDate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SaveRealDate(IntPtr cam, System.IntPtr sFileName);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StopSaveRealDate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StopSaveRealDate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_StopSaveRealDate(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_BackupUserDefault", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_BackupUserDefault", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_BackupUserDefault(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RestoreUserDefault", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RestoreUserDefault", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_RestoreUserDefault(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RestorMannuFDefalut", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RestorMannuFDefalut", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_RestorMannuFDefalut(IntPtr cam);
 
 
@@ -4308,23 +4179,29 @@ namespace HaSdkWrapper
         ///hasSDCard: int*
         ///totalSize: int*
         ///usedSize: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QuerySDCardInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QuerySDCardInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QuerySDCardInfo(IntPtr cam, ref int hasSDCard, ref int totalSize, ref int usedSize);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FormatSDCard", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FormatSDCard", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FormatSDCard(IntPtr cam);
 
 
-       
+        /// Return Type: int
+        ///cam: HA_Cam*
+        ///items: AudioItem*
+        ///itemBufNum: int
+        ///itemNum: int*
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetAudioList", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_GetAudioList(IntPtr cam, ref AudioItem items, int itemBufNum, ref int itemNum);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///audioId: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_TestAudioItem", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_TestAudioItem", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_TestAudioItem(IntPtr cam, int audioId);
 
 
@@ -4333,7 +4210,7 @@ namespace HaSdkWrapper
         ///inlen: int
         ///outbuf: char*
         ///outlen: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Gb23122Utf8", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Gb23122Utf8", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_Gb23122Utf8(System.IntPtr inbuf, int inlen, System.IntPtr outbuf, int outlen);
 
 
@@ -4342,13 +4219,13 @@ namespace HaSdkWrapper
         ///inlen: int
         ///outbuf: char*
         ///outlen: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Utf82Gb2312", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_Utf82Gb2312", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_Utf82Gb2312(System.IntPtr inbuf, int inlen, System.IntPtr outbuf, int outlen);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ClearAllCallbacks", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ClearAllCallbacks", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ClearAllCallbacks(IntPtr cam);
 
 
@@ -4356,7 +4233,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///cb: HA_PlateInfoCb_t
         ///usrParam: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetQueryPlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetQueryPlateInfoCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetQueryPlateInfoCb(IntPtr cam, HA_PlateInfoCb_t cb, int usrParam);
 
 
@@ -4365,14 +4242,14 @@ namespace HaSdkWrapper
         ///pStartTime: char*
         ///pEndTime: char*
         ///keyword: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryCountByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryCountByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryCountByTimeAndPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string keyword);
 
         /// Return Type: int
         ///cam: void*
         ///ptzCtl: int
         ///ctlMode: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_FocusAndZoomCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_FocusAndZoomCtl", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_FocusAndZoomCtl(System.IntPtr cam, int ptzCtl, int ctlMode);
 
         /// Return Type: int
@@ -4380,7 +4257,7 @@ namespace HaSdkWrapper
         ///srcJpgLen: int
         ///jpgW: unsigned int*
         ///jpgH: unsigned int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DecodeJpgSize", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DecodeJpgSize", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_DecodeJpgSize(IntPtr srcJpg, int srcJpgLen, ref uint jpgW, ref uint jpgH);
     }
 
@@ -4391,7 +4268,7 @@ namespace HaSdkWrapper
         ///pStartTime: char*
         ///pEndTime: char*
         ///keyword: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryRecordByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryRecordByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryRecordByTimeAndPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string keyword);
 
 
@@ -4402,7 +4279,7 @@ namespace HaSdkWrapper
         ///keyword: char*
         ///start: int
         ///end: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryPageRecordByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryPageRecordByTimeAndPlate", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryPageRecordByTimeAndPlate(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string keyword, int start, int end);
 
 
@@ -4410,7 +4287,7 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///pStartTime: char*
         ///pEndTime: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryOfflineCountByTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryOfflineCountByTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryOfflineCountByTime(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime);
 
 
@@ -4420,7 +4297,7 @@ namespace HaSdkWrapper
         ///pEndTime: char*
         ///start: int
         ///end: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryPageOfflineRecordByTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryPageOfflineRecordByTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryPageOfflineRecordByTime(IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pStartTime, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string pEndTime, int start, int end);
 
 
@@ -4429,7 +4306,7 @@ namespace HaSdkWrapper
         ///id: int
         ///img: unsigned char*
         ///imgLen: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryRecordById", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryRecordById", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryRecordById(IntPtr cam, int id, System.IntPtr img, ref int imgLen);
 
 
@@ -4438,13 +4315,13 @@ namespace HaSdkWrapper
         ///id: int
         ///img: unsigned char*
         ///imgLen: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryOfflineRecordById", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryOfflineRecordById", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryOfflineRecordById(IntPtr cam, int id, System.IntPtr img, ref int imgLen);
 
 
         /// Return Type: void
         ///notify: boolean
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetNotifyConnected", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetNotifyConnected", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetNotifyConnected(int notify);
 
 
@@ -4452,13 +4329,13 @@ namespace HaSdkWrapper
         ///cam: HA_Cam*
         ///callback: HA_IOStateCb_t
         ///userParm: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegIOStateCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegIOStateCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegIOStateCb(IntPtr cam, HA_IOStateCb_t callback, System.IntPtr userParm);
 
 
         /// Return Type: void
         ///dirFullPath: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetPlateLogDirectory", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetPlateLogDirectory", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetPlateLogDirectory([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string dirFullPath);
 
 
@@ -4468,7 +4345,7 @@ namespace HaSdkWrapper
         ///width: int
         ///height: int
         ///cn: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SaveBMP", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SaveBMP", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SaveBMP([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string filename, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string imgData, int width, int height, int cn);
 
 
@@ -4476,26 +4353,26 @@ namespace HaSdkWrapper
         ///filename: char*
         ///jpgBuf: char*
         ///len: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SaveJpg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SaveJpg", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SaveJpg([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string filename, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string jpgBuf, int len);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
         ///personID: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeleteFaceDataByPersonID", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DeleteFaceDataByPersonID", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_DeleteFaceDataByPersonID(IntPtr cam, IntPtr personID);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeleteFaceDataAll", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_DeleteFaceDataAll", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_DeleteFaceDataAll(IntPtr cam);
 
 
         /// Return Type: int
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceIDTotal", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceIDTotal", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceIDTotal(IntPtr cam);
 
         /// Return Type: int
@@ -4503,7 +4380,7 @@ namespace HaSdkWrapper
         ///faceID: FaceFlags*
         ///jpg: char*
         ///len: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AddJpgFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AddJpgFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AddJpgFace(IntPtr cam, ref FaceFlags faceID, IntPtr jpg, int len);
 
 
@@ -4513,7 +4390,7 @@ namespace HaSdkWrapper
         ///rgbimage: char*
         ///width: int
         ///height: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AddFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AddFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AddFace(IntPtr cam, ref FaceFlags faceID, IntPtr rgbimage, int width, int height);
 
 
@@ -4522,7 +4399,7 @@ namespace HaSdkWrapper
         ///faceID: FaceFlags*
         ///jpg: char*
         ///len: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyJpgFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyJpgFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyJpgFace(IntPtr cam, ref FaceFlags faceID, IntPtr jpg, int len);
 
 
@@ -4532,7 +4409,7 @@ namespace HaSdkWrapper
         ///rgbimage: char*
         ///width: int
         ///height: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyFace", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyFace(IntPtr cam, ref FaceFlags faceID, IntPtr rgbimage, int width, int height);
 
 
@@ -4542,169 +4419,177 @@ namespace HaSdkWrapper
         ///record_no: int
         ///featureFlags: char
         ///imgFlags: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryFaceID", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryFaceID", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryFaceID(IntPtr cam, ref QueryFaceFlags result, int record_no, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool featureFlags, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool imgFlags);
         
         /// Return Type: void
         ///cam: void*
         ///cb: HA_FaceQueryCb_t
         ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegFaceQueryCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegFaceQueryCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegFaceQueryCb(System.IntPtr cam, HA_FaceQueryCb_t cb, System.IntPtr usrParam);
 
         /// Return Type: int
         ///cam: void*
         ///sysTime: SystemTime*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetSystemTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetSystemTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetSystemTime(System.IntPtr cam, ref SystemTime sysTime);
 
 
         /// Return Type: int
         ///cam: void*
         ///sysTime: SystemTime*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetSystemTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetSystemTime", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetSystemTime(System.IntPtr cam, ref SystemTime sysTime);
 
         /// Return Type: int
         ///cam: void*
         ///enable: int
         ///timeout: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetDereplicationEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetDereplicationEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetDereplicationEnable(System.IntPtr cam, int enable, int timeout);
 
 
         /*/// Return Type: int
         ///cam: void*
         ///UploadParam: ClientParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetUploadConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetUploadConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetUploadConfig(System.IntPtr cam, ref ClientParam UploadParam);
 
 
         /// Return Type: int
         ///cam: void*
         ///UploadParam: ClientParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetUploadConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetUploadConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetUploadConfig(System.IntPtr cam, ref ClientParam UploadParam);*/
 
 
         /// Return Type: int
         ///cam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ResetFaceConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ResetFaceConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ResetFaceConfig(System.IntPtr cam);
 
 
         /// Return Type: int
         ///cam: void*
         ///max_exposure: short*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMaxExposure", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMaxExposure", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMaxExposure(System.IntPtr cam, ref short max_exposure);
 
 
         /// Return Type: int
         ///cam: void*
         ///max_exposure: short
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMaxExposure", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetMaxExposure", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetMaxExposure(System.IntPtr cam, short max_exposure);
 
 
         /// Return Type: int
         ///cam: void*
         ///max_gain: short*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMaxGain", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMaxGain", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMaxGain(System.IntPtr cam, ref short max_gain);
 
 
         /// Return Type: int
         ///cam: void*
         ///max_gain: short
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMaxGain", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetMaxGain", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetMaxGain(System.IntPtr cam, short max_gain);
 
 
         /// Return Type: int
         ///cam: void*
         ///contrast: short*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetContrast", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetContrast", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetContrast(System.IntPtr cam, ref short contrast);
 
 
         /// Return Type: int
         ///cam: void*
         ///contrast: short
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetContrast", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetContrast", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetContrast(System.IntPtr cam, short contrast);
 
 
         /// Return Type: int
         ///cam: void*
         ///ntpInfo: NtpInfo*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetNtpConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetNtpConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetNtpConfig(System.IntPtr cam, ref NtpInfo ntpInfo);
 
 
         /// Return Type: int
         ///cam: void*
         ///ntpInfo: NtpInfo*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetNtpConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetNtpConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetNtpConfig(System.IntPtr cam, ref NtpInfo ntpInfo);
 
 
         /// Return Type: int
         ///cam: void*
         ///netInfo: SystemNetInfo*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetNetConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetNetConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetNetConfig(System.IntPtr cam, ref SystemNetInfo netInfo);
 
 
         /// Return Type: int
         ///cam: void*
         ///netInfo: SystemNetInfo*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetNetConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetNetConfig", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetNetConfig(System.IntPtr cam, ref SystemNetInfo netInfo);
 
 
         /// Return Type: int
         ///cam: void*
         ///led_mode: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetLedMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetLedMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetLedMode(System.IntPtr cam, System.IntPtr led_mode);
 
 
         /// Return Type: int
         ///cam: void*
         ///led_mode: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetLedMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetLedMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetLedMode(System.IntPtr cam, byte led_mode);
 
 
-        
+        /// Return Type: int
+        ///cam: void*
+        ///led_level: char*
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetLedLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_GetLedLevel(System.IntPtr cam, System.IntPtr led_level);
 
 
-     
+        /// Return Type: int
+        ///cam: void*
+        ///led_level: char
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetLedLevel", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        public static extern int HA_SetLedLevel(System.IntPtr cam, byte led_level);
 
 
         /// Return Type: int
         ///cam: void*
         ///led_threshold: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetLedThreshold", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetLedThreshold", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetLedThreshold(System.IntPtr cam, System.IntPtr led_threshold);
 
 
         /// Return Type: int
         ///cam: void*
         ///led_threshold: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetLedThreshold", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetLedThreshold", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetLedThreshold(System.IntPtr cam, byte led_threshold);
 
         /// Return Type: int
         ///cam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SystemReboot", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SystemReboot", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SystemReboot(System.IntPtr cam);
 
 
         /// Return Type: int
         ///cam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AppReboot", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AppReboot", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AppReboot(System.IntPtr cam);
 
         /// Return Type: int
@@ -4712,7 +4597,7 @@ namespace HaSdkWrapper
         ///len: int
         ///feature: float*
         ///feature_size: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetJpgFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetJpgFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetJpgFaceFeature([System.Runtime.InteropServices.InAttribute()] System.IntPtr jpg, int len, ref float feature, ref int feature_size);
 
 
@@ -4722,7 +4607,7 @@ namespace HaSdkWrapper
         ///height: int
         ///feature: float*
         ///feature_size: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceFeature([System.Runtime.InteropServices.InAttribute()] System.IntPtr rgbimage, int width, int height, ref float feature, ref int feature_size);
 
         /// Return Type: int
@@ -4732,7 +4617,7 @@ namespace HaSdkWrapper
         ///page_size: int
         ///featureFlags: char
         ///imgFlags: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryByRole", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_QueryByRole", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_QueryByRole(System.IntPtr cam, int role, int page_no, int page_size, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool featureFlags, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool imgFlags);
 
         /// Return Type: int
@@ -4740,7 +4625,7 @@ namespace HaSdkWrapper
         ///len: int
         ///feature: float*
         ///feature_size: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetJpgFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetJpgFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetJpgFaceFeature([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string jpg, int len, ref float feature, ref int feature_size);
 
 
@@ -4750,7 +4635,7 @@ namespace HaSdkWrapper
         ///height: int
         ///feature: float*
         ///feature_size: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceFeature([System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string rgbimage, int width, int height, ref float feature, ref int feature_size);
 
 
@@ -4758,7 +4643,7 @@ namespace HaSdkWrapper
         ///f1: float*
         ///f2: float*
         ///feature_size: int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMatchScores", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetMatchScores", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetMatchScores(ref float f1, ref float f2, int feature_size);
 
 
@@ -4770,12 +4655,16 @@ namespace HaSdkWrapper
         ///faceRect: void*
         ///faceImgJpg: unsigned char*
         ///faceJpgLen: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetJpgFaceRectAndFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetJpgFaceRectAndFeature", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetJpgFaceRectAndFeature(IntPtr jpg, int len, IntPtr feature, ref int feature_size, ref ha_rect faceRect, System.IntPtr faceImgJpg, ref int faceJpgLen);
 
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetJpgFaceTwist", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetJpgFaceTwist", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetJpgFaceTwist(IntPtr jpg, int len, IntPtr twist_image, ref int twist_size, ref int twist_width, ref int twist_height);
+
+        [DllImport("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetJpgFeatureImage", CallingConvention = CallingConvention.StdCall)]
+        public static extern int HA_GetJpgFeatureImage(byte[] jpg, int len, [Out] byte[] twist_image, ref int twist_size, ref int twist_width, ref int twist_height, [Out] byte[] faceImgJpg, ref int faceJpgLen);
+        /*HASDK_API int HASDK_CALL HA_GetJpgFeatureImage(const unsigned char *jpg, int len,unsigned char *twist_image, int *twist_size, int *twist_width, int *twist_height, unsigned char *faceImgJpg, int *faceJpgLen);*/
     }
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
@@ -4797,25 +4686,25 @@ namespace HaSdkWrapper
 
     public partial class NativeMethods
     {
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetDetectRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetDetectRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetDetectRect(IntPtr cam, ref ha_rect rect);
 
         /// Return Type: void
         ///cam: HA_Cam*
         ///rect: ha_rect*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_SetDrawRect(IntPtr cam, ref ha_rect rect);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StartDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StartDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StartDrawRect(IntPtr cam);
 
 
         /// Return Type: void
         ///cam: HA_Cam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_StopDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_StopDrawRect", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_StopDrawRect(IntPtr cam);
     }
 
@@ -4823,7 +4712,7 @@ namespace HaSdkWrapper
     ///cam: void*
     ///enable: int*
     ///timeout: int*
-   // public delegate SystemNetInfo HA_GetDereplicationgConfig(System.IntPtr cam, ref int enable, ref int timeout);
+    public delegate SystemNetInfo HA_GetDereplicationgConfig(System.IntPtr cam, ref int enable, ref int timeout);
 
     /// Return Type: void
     ///cam: HA_Cam*
@@ -4928,16 +4817,6 @@ namespace HaSdkWrapper
     ///usrParam: void*
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.StdCall)]
     public delegate void HA_FaceRecoCb_t(IntPtr cam, System.IntPtr faceRecoInfo, System.IntPtr usrParam);
-
-    /// <summary>
-    /// GPIO输入信号
-    /// </summary>
-    /// <param name="cam"></param>
-    /// <param name="type"></param>
-    /// <param name="data"></param>
-    /// <param name="usrParam"></param>
-    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.StdCall)]
-    public delegate void HA_GpioInputCb_t(IntPtr cam,int type,uint data, System.IntPtr usrParam);
 
     /// Return Type: void
     ///cam: HA_Cam*
@@ -5111,7 +4990,7 @@ namespace HaSdkWrapper
         public byte[] build_time;
 
         /// char[16]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 1024)]
+        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
         public byte[] resv;
     }
 
@@ -5139,16 +5018,16 @@ namespace HaSdkWrapper
 
     public partial class NativeMethods
     {
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AddJpgFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AddJpgFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AddJpgFaces(System.IntPtr cam, ref FaceFlags faceID, FaceImage[] imgs, int img_count, int picture_flags);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AddFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AddFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AddFaces(System.IntPtr cam, ref FaceFlags faceID, FaceImage[] imgs, int img_count, int picture_flags);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyJpgFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyJpgFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyJpgFaces(System.IntPtr cam, ref FaceFlags faceID, FaceImage[] imgs, int img_count, int picture_flags);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyFaces", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyFaces(System.IntPtr cam, ref FaceFlags faceID, FaceImage[] imgs, int img_count, int picture_flags);
     }
 
@@ -5180,7 +5059,7 @@ namespace HaSdkWrapper
         ///user_name: char*
         ///passwd: char*
         ///authInfo: AuthParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetAuthInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetAuthInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetAuthInfo(System.IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string user_name, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string passwd, ref AuthParam authInfo);
 
 
@@ -5189,7 +5068,7 @@ namespace HaSdkWrapper
         ///user_name: char*
         ///passwd: char*
         ///authInfo: AuthParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetAuthInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetAuthInfo", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetAuthInfo(System.IntPtr cam, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string user_name, [System.Runtime.InteropServices.InAttribute()] [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)] string passwd, ref AuthParam authInfo);
 
     }
@@ -5282,18 +5161,6 @@ namespace HaSdkWrapper
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 256)]
         public byte[] resv4;
     }
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct FtpInfo { 
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 15)]
-    public string    user_name;     //用户名
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 15)]
-    public string passwd;        //密码
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 70)]
-    public string path;          //路径
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 12)]
-    public string resv;           //空闲
-    }
-
 
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
     public struct AlarmInfoRecord
@@ -5372,14 +5239,14 @@ namespace HaSdkWrapper
         /// Return Type: int
         ///cam: void*
         ///param: FaceAppParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceAppParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_GetFaceAppParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_GetFaceAppParam(System.IntPtr cam, ref FaceAppParam param);
 
 
         /// Return Type: int
         ///cam: void*
         ///param: FaceAppParam*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetFaceAppParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetFaceAppParam", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetFaceAppParam(System.IntPtr cam, ref FaceAppParam param);
 
 
@@ -5387,7 +5254,7 @@ namespace HaSdkWrapper
         ///cam: void*
         ///cb: HA_AlarmRecordCb_t
         ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegAlarmRecordCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegAlarmRecordCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegAlarmRecordCb(System.IntPtr cam, HA_AlarmRecordCb_t cb, System.IntPtr usrParam);
 
 
@@ -5395,10 +5262,10 @@ namespace HaSdkWrapper
         ///cam: void*
         ///cb: HA_AlarmRequestCb_t
         ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegAlarmRequestCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_RegAlarmRequestCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern void HA_RegAlarmRequestCb(System.IntPtr cam, HA_AlarmRequestCb_t cb, System.IntPtr usrParam);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_WiegandAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_WiegandAlarm", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_WiegandAlarm(System.IntPtr cam, uint wiegand_no);
 
     }
@@ -5426,990 +5293,18 @@ namespace HaSdkWrapper
         ///picture_flags: int
         ///err_imgs: ErrorFaceImage*
         ///err_imgs_count: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_JpgFacesEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_JpgFacesEx", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_JpgFacesEx(System.IntPtr cam, int type, ref FaceFlags faceID, FaceImage[] imgs, int img_count, int picture_flags,[Out] ErrorFaceImage[] err_imgs, ref int err_imgs_count);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_AddFacePacket", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_AddFacePacket", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_AddFacePacket(IntPtr cam, ref FaceFlags faceID, FaceImage[] features, int features_size, int features_num, ref FaceImage imgs, int img_num);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_ModifyFacePacket", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_ModifyFacePacket", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_ModifyFacePacket(IntPtr cam, ref FaceFlags faceID, FaceImage[] features, int features_size, int features_num, ref FaceImage imgs, int img_num);
 
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetFaceCheckEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
+        [System.Runtime.InteropServices.DllImportAttribute("linux-x86-64/liblibHasdk.so", EntryPoint = "HA_SetFaceCheckEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
         public static extern int HA_SetFaceCheckEnable(int img_num);
     }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct RecordData
-    {
-
-        /// int
-        public int record_count;
-
-        /// int
-        public int record_no;
-
-        /// unsigned int
-        public uint sequence;
-
-        /// unsigned int
-        public uint tvSec;
-
-        /// unsigned int
-        public uint tvUsec;
-
-        /// short
-        public short matched;
-
-        /// unsigned char
-        public byte sex;
-
-        /// unsigned char
-        public byte age;
-
-        /// char[20]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 20)]
-        public byte[] person_id;
-
-        /// char[16]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
-        public byte[] person_name;
-
-        /// int
-        public int face_image_len;
-
-        /// unsigned char*
-        public System.IntPtr face_image;
-
-        /// unsigned short
-        public ushort faceXInFaceImg;
-
-        /// unsigned short
-        public ushort faceYInFaceImg;
-
-        /// unsigned short
-        public ushort faceWInFaceImg;
-
-        /// unsigned short
-        public ushort faceHInFaceImg;
-
-        /// int
-        public int reg_image_len;
-
-        /// unsigned char*
-        public System.IntPtr reg_image;
-
-        /// unsigned char
-        public byte qvalue;
-
-        /// char
-        public byte is_upload;
-
-        public sbyte role;
-
-        public byte resv;
-    }
-
-    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.StdCall)]
-    public delegate void HA_FaceRecordCb_t(System.IntPtr cam, IntPtr recordInfo, System.IntPtr usrParam);
-
-    public enum QueryMode:ushort
-    {
-
-        /// QUERY_EXACT -> 0x0
-        QUERY_EXACT = 0,
-
-        /// QUERY_FUZZY -> 0x1
-        QUERY_FUZZY = 1,
-    }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct RecordCondition
-    {
-
-        /// char
-        public byte img_flag;
-
-        /// char
-        public byte reg_img_flag;
-
-        /// char[2]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 2)]
-        public byte[] resv1;
-
-        /// unsigned short
-        public QueryMode query_mode;
-
-        /// unsigned short
-        public RecordQueryFlag condition_flag;
-
-        /// unsigned int
-        public uint time_start;
-
-        /// unsigned int
-        public uint time_end;
-
-        /// short
-        public short score_start;
-
-        /// short
-        public short score_end;
-
-        /// unsigned char
-        public byte sex;
-
-        /// unsigned char
-        public byte age_start;
-
-        /// unsigned char
-        public byte age_end;
-
-        /// char[17]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 17)]
-        public byte[] resv2;
-
-        /// char[20]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 20)]
-        public byte[] person_id;
-
-        /// char[16]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
-        public byte[] person_name;
-
-        /// unsigned char
-        public byte qvalue_start;
-
-        /// unsigned char
-        public byte qvalue_end;
-
-        /// char
-        public sbyte upload_state;
-
-        /// char[65]
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 65)]
-        public byte[] resv3;
-    }
-
-    [Flags]
-    public enum RecordQueryFlag : ushort
-    {
-        NONE = 0,
-        /// RECORD_QUERY_FLAG_TIME -> 0x1
-        RECORD_QUERY_FLAG_TIME = 1,
-
-        /// RECORD_QUERY_FLAG_SCORE -> 0x1<<1
-        RECORD_QUERY_FLAG_SCORE = (1) << (1),
-
-        /// RECORD_QUERY_FLAG_SEX -> 0x1<<2
-        RECORD_QUERY_FLAG_SEX = (1) << (2),
-
-        /// RECORD_QUERY_FLAG_AGE -> 0x1<<3
-        RECORD_QUERY_FLAG_AGE = (1) << (3),
-
-        /// RECORD_QUERY_FLAG_ID -> 0x1<<4
-        RECORD_QUERY_FLAG_ID = (1) << (4),
-
-        /// RECORD_QUERY_FLAG_NAME -> 0x1<<5
-        RECORD_QUERY_FLAG_NAME = (1) << (5),
-
-        /// RECORD_QUERY_FLAG_QVALUE -> 0x1<<6
-        RECORD_QUERY_FLAG_QVALUE = (1) << (6),
-
-        /// RECORD_QUERY_FLAG_UPLOAD -> 0x1<<7
-        RECORD_QUERY_FLAG_UPLOAD = (1) << (7),
-
-        /// RECORD_QUERY_FLAG_SEQUENCE -> 0x1<<8
-        RECORD_QUERY_FLAG_SEQUENCE = (1) << (8),
-    }
-
-
-    public partial class NativeMethods
-    {
-
-        /// Return Type: int
-        ///cam: void*
-        ///page_no: int
-        ///page_size: int
-        ///condition: RecordCondition*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_QueryFaceRecord", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_QueryFaceRecord(System.IntPtr cam, int page_no, int page_size, ref RecordCondition condition);
-
-        /// Return Type: int
-        ///cam: void*
-        ///sequence: unsigned int
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeleteFaceRecordBySequence", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_DeleteFaceRecordBySequence(System.IntPtr cam, uint sequence);
-
-
-        /// Return Type: int
-        ///cam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_DeleteFaceRecordAll", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_DeleteFaceRecordAll(System.IntPtr cam);
-
-
-        /// Return Type: void
-        ///cam: void*
-        ///cb: HA_FaceRecordCb_t
-        ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegFaceRecordQueryCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern void HA_RegFaceRecordQueryCb(System.IntPtr cam, HA_FaceRecordCb_t cb, System.IntPtr usrParam);
-
-        /// Return Type: int
-        ///cam: void*
-        ///enable: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetRecorderEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_GetRecorderEnable(System.IntPtr cam, ref byte enable);
-
-
-        /// Return Type: int
-        ///cam: void*
-        ///enable: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetRecorderEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_SetRecorderEnable(System.IntPtr cam, byte enable);
-
-
-        /// Return Type: int
-        ///cam: void*
-        ///enable: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetRecorderResumeEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_GetRecorderResumeEnable(System.IntPtr cam, ref byte enable);
-
-
-        /// Return Type: int
-        ///cam: void*
-        ///enable: char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetRecorderResumeEnable", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_SetRecorderResumeEnable(System.IntPtr cam, byte enable);
-
-    }
-
-    public partial class NativeMethods
-    {
-
-        /// Return Type: int
-        ///jpg: char*
-        ///len: int
-        ///twist_image: unsigned char*
-        ///twist_size: int*
-        ///twist_width: int*
-        ///twist_height: int*
-        ///faceImgJpg: unsigned char*
-        ///faceJpgLen: int*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetJpgFeatureImage", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_GetJpgFeatureImage([In] byte[] jpg, int len, [Out] byte[] twist_image, ref int twist_size, ref int twist_width, ref int twist_height, [Out] byte[] faceImgJpg, ref int faceJpgLen);
-        
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetAllPersonId", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_GetAllPersonId(System.IntPtr cam,[Out] byte[] PersonIdBuff,int Buffsize,ref int count,ref int total);
-        //public static extern int HA_GetAllPersonId(System.IntPtr cam, IntPtr PersonIdBuff, int Buffsize, ref int count, ref int total);
-    }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct SnapshotImage
-    {
-
-        /// unsigned int
-        public uint timeStamp_s;
-
-        /// unsigned int
-        public uint timeStamp_u;
-
-        /// int
-        public int snapImageSize;
-
-        /// unsigned char*
-        //[System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray)]
-        //public byte[] snapImage;
-        public IntPtr snapImage;
-    }
-
-    /// Return Type: void
-    ///cam: void*
-    ///snapImage: SnapshotImage*
-    ///usrParam: void*
-    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.StdCall)]
-    public delegate void HA_SnapshotCb_t(System.IntPtr cam, ref SnapshotImage snapImage, System.IntPtr usrParam);
-
-    public partial class NativeMethods
-    {
-
-        /// Return Type: void
-        ///cam: void*
-        ///cb: HA_SnapshotCb_t
-        ///usrParam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_RegSnapshotCb", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern void HA_RegSnapshotCb(System.IntPtr cam, HA_SnapshotCb_t cb, System.IntPtr usrParam);
-
-
-        /// Return Type: int
-        ///cam: void*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_Snapshot", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_Snapshot(System.IntPtr cam);
-
-        /// Return Type: int
-        ///password: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetSDKPassword", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_SetSDKPassword([In] [MarshalAs(UnmanagedType.LPStr)] string password);
-        
-        /// Return Type: int
-        ///cam: void*
-        ///password: char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetCamSDKPassword", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_SetCamSDKPassword(System.IntPtr cam, [In] [MarshalAs(UnmanagedType.LPStr)] string password);
-    }
-
-    public partial class NativeMethods
-    {
-
-        /// Return Type: int
-        ///cam: void*
-        ///mode: unsigned char*
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_GetMatchMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_GetMatchMode(System.IntPtr cam, ref byte mode);
-
-
-        /// Return Type: int
-        ///cam: void*
-        ///mode: unsigned char
-        [System.Runtime.InteropServices.DllImportAttribute("lib64/libHasdk.dll", EntryPoint = "HA_SetMatchMode", CallingConvention = System.Runtime.InteropServices.CallingConvention.StdCall)]
-        public static extern int HA_SetMatchMode(System.IntPtr cam, byte mode);
-
-        [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetAliveDetectEnable", CallingConvention = CallingConvention.StdCall)]
-        public static extern int HA_GetAliveDetectEnable(IntPtr cam, [MarshalAs(UnmanagedType.Bool)] ref bool enabled);
-
-        [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetAliveDetectEnable", CallingConvention = CallingConvention.StdCall)]
-        public static extern int HA_SetAliveDetectEnable(IntPtr cam, [MarshalAs(UnmanagedType.Bool)] bool enabled);
-    }
-
-
-    public partial class NativeMethods
-    {
-
-        [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetHatDetectEnable", CallingConvention = CallingConvention.StdCall)]
-        public static extern int HA_GetHatDetectEnable(IntPtr cam, [MarshalAs(UnmanagedType.Bool)] ref bool enabled);
-
-        [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetHatDetectEnable", CallingConvention = CallingConvention.StdCall)]
-        public static extern int HA_SetHatDetectEnable(IntPtr cam, [MarshalAs(UnmanagedType.Bool)] bool enabled);
-    }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public struct QueryCondition
-    {
-
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 20)]
-        public byte[] faceID;//人员ID
-
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
-        public byte[] faceName;//人员姓名
-
-         public uint wgCardNO;  //韦根协议门禁卡号
-         public uint timeStart; //有效期截止时间的查询起点
-         public uint timeEnd;   //有效期截止d时间的查询终点
-         public uint time1Start; //有效期起始时间的查询起点
-         public uint time1End;   //有效期起始时间的查询终点
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 256)]
-         public byte[] resv;
-    
-    }
-
-    public partial class NativeMethods
-    {
-
-
-
-        [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_QueryFaceEx", CallingConvention = CallingConvention.StdCall)]
-        public static extern int HA_QueryFaceEx(IntPtr cam, int role, int page_no, int page_size, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool featureFlags, [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.I1)] bool imgFlags, short condition_flag, short query_mode, ref QueryCondition querycondition);
-    }
-
-   
-
-
-
-
-    [Flags]
-    public enum ConditionFlag : ushort
-    {
-        
-
-
-        //通过ID查询
-        QUERY_BY_ID = 0x1,
-
-        //通过姓名查询
-        QUERY_BY_NAME = 0x2,
-
-        //通过韦根卡号查询
-        QUERY_BY_WGNO = 0x4,
-
-        //通过有效期截止时间范围查询
-        QUERY_BY_EFFECT_TIME = 0x8,
-
-        //通过有效期起始时间范围查询
-        QUERY_BY_EFFECT_START_TIME = 0x10
-
-    }
-
-
-
-     public partial class NativeMethods
-    {
-
-
-
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetScheduleModeCfg", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetScheduleModeCfg(IntPtr cam,  IntPtr cfg, ref  int ScheduleCount);
-
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetScheduleModeCfg", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetScheduleModeCfg(IntPtr cam, IntPtr cfg, int ScheduleCount);
-
-    }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-     public struct KindSchedule
-    {
-
-     public    ScheduleMode Mode; //调度模式 
-     [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
-	 public byte[] ScheduleName;  //类别名称  自定义
-	public ushort ScheduleNameCode; //类别代码  取值 [1~5] 不能重复   
-	/*调度模式为 SCHEDULE_MODE_DAILY 时 只读取Schedule[0] 配置  
-	为 SCHEDULE_MODE_WEEKLY 时周一 周日按Schedule[0]-Schedule[7] 配置 */
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 7, ArraySubType = System.Runtime.InteropServices.UnmanagedType.Struct)] 
-	 public DailySchedule[] Schedule;  //调度时间 
-     [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 32)]
-	 public byte[] recv; //保留 
-    
-    }
-
-
-    
-    public enum ScheduleMode 
-    {
-        
-
-
-        /*! 禁用。 */
-	SCHEDULE_MODE_NONE = 0,
-
-	/*! 按天调度。 周1-周7 都按照此设置运行  */
-	SCHEDULE_MODE_DAILY = 1,   
-
-	/*! 按周调度。 周1-周7分别设置*/
-	SCHEDULE_MODE_WEEKLY = 2
-
-    }
-
-
-    public struct DailySchedule{
-	public uint Sector; // 一天内时间总段数 最大支持6段   设置Schedule[0]--Schedule[1].......Schedule[Sector] 内为开闸时间
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 6, ArraySubType = System.Runtime.InteropServices.UnmanagedType.Struct)]
-	public HourSchedule[] SchTime;  // 调度时间 在此时间段为开闸时间
-    [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 16)]
-	public byte[] recv; //保留 
-    }
-
-
-    public struct HourSchedule{
-	/*! 起始时间。闭区间（包含该值）。 */
-	public MinuteSchedule start;
-
-	/*! 结束时间。开区间（不包含该值）。 */
-	public MinuteSchedule end;
-    }
-
-
-     public struct MinuteSchedule{
-	/*! 时。取值范围：0~24。 */
-	public byte hour;
-
-	/*! 分。取值范围：0~59。 */
-    public byte minute;
-    }
-
-
-
-     public partial class NativeMethods
-     {
-
-         /**
- * @brief   查看过期自动清理开关
- * @param   cam[in]   相机句柄
- * @param   enable[out] 清理开关:关 1:开
- * @return  0 获取成功              
- * @return  <0 获取失败  参考错误码
- */
-
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetAutoCleanEnable", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetAutoCleanEnable(IntPtr cam, ref  int enable);
-
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetAutoCleanEnable", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_SetAutoCleanEnable(IntPtr cam, int enable);
-
-
-
-
-     }
-
-
-    //安全帽枚举
-
-     public enum HatDetectResult
-     {
-         /*! 未检测到安全帽 */
-         NO_HAT = 0,
-         /*! 蓝色安全帽 */
-         HAVE_BLUE_HAT= 1,
-         /*! 橙色安全帽 */
-         HAVE_ORANGE_HAT= 2,
-         /*! 红色安全帽 */
-         HAVE_RED_HAT= 3,
-         /*! 白色安全帽 */
-         HAVE_WHITE_HAT= 4,
-         /*! 黄色安全帽 */
-         HAVE_YELLOW_HAT= 5,
-     };
-
-
-     public enum MatchType
-     {
-         /*! 未知 */
-         MATCH_TYPE_NULL = 0x0,
-
-         /*! 刷脸比对成功 */
-
-         MATCH_TYPE_NORMAL = 0x1,
-
-         /*! 人证比对成功 */
-
-         MATCH_TYPE_IDCARD_1TO1 = 0x1 << 1,
-
-         /*! 刷身份证比对 */
-
-         MATCH_TYPE_IDCARD = 0x1 << 2,
-
-         /*! 刷卡比对成功 */
-
-         MATCH_TYPE_WGCARD = 0x1 << 3,
-
-         /*! 过人开闸 */
-
-         MATCH_TYPE_ANY_FACE = 0x1 << 4
-     };
-
-     /// LCD显示项
-     public enum LcdDisplayItem
-     {
-         /*! 显示标题 */
-         LCD_DISPLAY_ITEM_TITILE = 0x1,
-
-         /*! 显示时间 */
-         LCD_DISPLAY_ITEM_TIME = 0x1 << 1,
-
-         /*! 显示IP */
-         LCD_DISPLAY_ITEM_IP = 0x1 << 2,
-
-         /*! 显示人脸库数量 */
-         LCD_DISPLAY_ITEM_PERSON_NUM = 0x1 << 3
-     };
-
-
-    /// <summary>
-    /// 安全帽禁止通行
-    /// </summary>
-     public partial class NativeMethods
-     {
-
-
-
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetProhibitSafetyhat", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetProhibitSafetyhat(IntPtr cam, ref  int pro);
-
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetProhibitSafetyhat", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_SetProhibitSafetyhat(IntPtr cam, int pro);
-
-
-         /// <summary>
-         /// 获取相机宽动态
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="pro"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetWDR", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetWDR(IntPtr cam,ref byte enable,ref HourSchedule t_wdr);
-         /// <summary>
-         ///   设置相机宽动态
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="pro"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetWDR", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_SetWDR(IntPtr cam, byte enable, HourSchedule t_wdr);
-         /// <summary>
-         /// 设置屏幕显示
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="screen_title"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetScreenOsdTitle", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_SetScreenOsdTitle(IntPtr cam, byte[] screen_title);
-
-
-         /// <summary>
-         /// 语音播放
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="screen_title"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_TTSPlayAudio", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_TTSPlayAudio(IntPtr cam, byte[] txt);
-
-         /// <summary>
-         /// 获取上传数据
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="UploadParam"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetUploadConfig", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetUploadConfig(IntPtr cam,ref ClientParam UploadParam);
-
-         /// <summary>
-         /// 设置上传数据
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="UploadParam"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetUploadConfig", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_SetUploadConfig(IntPtr cam, ref ClientParam UploadParam);
-
-         /// <summary>
-         /// 获取相机设备信息
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="UploadParam"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetFaceSystemVersionEx", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetFaceSystemVersionEx(IntPtr cam, ref SystemVersionInfo version);
-
-
-         /// <summary>
-         /// 检测图片
-         /// </summary>
-         /// <param name="jpg"></param>
-         /// <param name="len"></param>
-         /// <returns></returns>
-         [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_FaceJpgLegal", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_FaceJpgLegal(IntPtr jpg, int len);
-
-         /// <summary>
-         /// 获得去重复
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="enable"></param>
-         /// <param name="timeout"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetDereplicationgConfig", CallingConvention = CallingConvention.StdCall)]
-         public static extern int HA_GetDereplicationgConfig(System.IntPtr cam, ref int enable, ref int timeout);
-
-         /// <summary>
-         /// 设置去重复
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="enable"></param>
-         /// <param name="timeout"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetDereplicationEnable", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetDereplicationEnable(System.IntPtr cam, ref int enable, ref int timeout);
-
-         /// <summary>
-         /// 获取外网穿透
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="extr"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetExtranetParam", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetExtranetParam(System.IntPtr cam, ref ExtranetParam extr);
-
-         /// <summary>
-         /// 设置外网穿透
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="extr"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetExtranetParam", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetExtranetParam(System.IntPtr cam,  ExtranetParam extr);
-         /// <summary>
-         /// 获取设备音量
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="audio_volume"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetAudioVolume", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetAudioVolume(System.IntPtr cam, ref int audio_volume);
-         /// <summary>
-         /// 设置设备音量
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="audio_volume"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetAudioVolume", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetAudioVolume(System.IntPtr cam,  int audio_volume);
-
-
-          /// <summary>
-          /// 获取音频
-          /// </summary>
-          /// <param name="cam"></param>
-          /// <param name="items"></param>
-          /// <param name="itemBufNum"></param>
-          /// <param name="itemNum"></param>
-          /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetAudioList", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetAudioList(IntPtr cam, IntPtr items, int itemBufNum, ref int itemNum);
-          /// <summary>
-          /// 播放音频
-          /// </summary>
-          /// <param name="cam"></param>
-          /// <param name="items"></param>
-          /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_TestAudioItemByName", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_TestAudioItemByName(IntPtr cam, ref AudioItem items);
-
-         /// <summary>
-          /// 设置LCD显示屏显示项
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="itme"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetLcdDisplayItems", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetLcdDisplayItems(IntPtr cam, int itme);
-         /// <summary>
-          /// 获取LCD显示屏显示项
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="itme"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetLcdDisplayItems", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetLcdDisplayItems(IntPtr cam,ref int itme);
-
-         /// <summary>
-         /// 获取比对成功显示项
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="itme"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetPersonDisplayOptions", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetPersonDisplayOptions(IntPtr cam, ref int Options);
-
-         /// <summary>
-         /// 设置比对成功显示项
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="Options"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetPersonDisplayOptions", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetPersonDisplayOptions(IntPtr cam,  int Options);
-         /// <summary>
-         /// 获取镜像显示开关
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="Options"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetflipEnable", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetflipEnable(IntPtr cam, ref byte Enable);
-
-         /// <summary>
-         /// 设置镜像显示开关
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="Options"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetflipEnable", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetflipEnable(IntPtr cam, byte Enable);
-
-         /// <summary>
-         /// 获取显示屏亮度
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="led_level"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetLedLevel", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetLedLevel(IntPtr cam,ref byte led_level);
-
-         /// <summary>
-         /// 设置屏幕亮度
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="led_level"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetLedLevel", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetLedLevel(IntPtr cam,  byte led_level);
-         /// <summary>
-         /// 获取上传方式域名
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="domain"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetUploadDomain", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetUploadDomain(IntPtr cam, byte[] domain);
-
-         /// <summary>
-         /// 设置长传方式域名
-         /// </summary>
-         /// <param name="cam"></param>
-         /// <param name="domain"></param>
-         /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetUploadDomain", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetUploadDomain(IntPtr cam,  byte[] domain);
-
-          /// <summary>
-          /// 获取外网穿透域名
-          /// </summary>
-          /// <param name="cam"></param>
-          /// <param name="domain"></param>
-          /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_GetExtranetDomain", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_GetExtranetDomain(IntPtr cam, byte[] domain);
-
-          /// <summary>
-          /// 设置外网穿透域名
-          /// </summary>
-          /// <param name="cam"></param>
-          /// <param name="domain"></param>
-          /// <returns></returns>
-          [DllImport("lib64/libHasdk.dll", EntryPoint = "HA_SetExtranetDomain", CallingConvention = CallingConvention.StdCall)]
-          public static extern int HA_SetExtranetDomain(IntPtr cam, byte[] domain);
-
-
-
-
-
-     }
-
-     public enum LcdPersonDisplayItem
-     {
-         /*! 显示比对成功的人员姓名 */
-         LCD_PERSON_DISPLAY_ITEM_PERSON_NAME = 0x1 << 1,
-
-         /*! 显示比对成功的人员图像 */
-         LCD_PERSON_DISPLAY_ITEM_PERSON_IMAGE = 0x1 << 2,
-
-         /*! 显示比对成功的人员比对时间 */
-         LCD_PERSON_DISPLAY_ITEM_PERSON_MATCH_TIME = 0x1 << 3,
-
-         /*! 显示比对成功的人员自定义字段 */
-         LCD_PERSON_DISPLAY_ITEM_PERSON_TEXT = 0x1 << 4
-     };
-
-
-
-     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-     public struct ClientParam { 
-     public byte mode; /*0 未初始化。 1 TCP协议上传。 2 FTP协议上传。 3 HTTP协议上传。4 WebService上传 */
-
-     public byte  enable_heart; //心跳开关 目前只控制http
-
-     /*! 保留。 */
-     [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 2)]
-     public string resv;
-     [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 120)]
-     public byte[] ClientParams;
-     
-     }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct ExtranetParam {
-  /*! 以TCP客户端方式直达外网。 */
-  [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst = 120)]
-     public byte[] ExtranetParams;
-
-     public byte enable;//使能
-
-  /*! 穿透模式，0：以TCP客户端方式直达外网。1：以 comet长轮询模式直达外网 2：以comet流模式直达外网 */
-     public byte mode;
-
-      /*! 保留。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 6)]
-      public string resv;
-};
-
-
-
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-     public struct FtpClientParam1 { 
-     /*! 服务器IP地址。 */
-       [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 16)]
-      public string  ip;
-
-      /*! 服务器端口。 */
-      public int port;
-
-      /*! 登录用户名。 */
-       [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 15)]
-       public string user;
-
-       /*! 登录密码。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 15)]
-       public string password;
-
-  /*! 上传目录。 */
-         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 70)]
-       public string pattern;
-     
-     
-     }
-
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct TcpClientParam1
-    {
-        /*! 服务器IP地址。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string ip;
-
-        /*! 服务器端口。 */
-        public int port;
-        /*! 使能开关（未使用，该字段仅为兼容旧协议而加入）。 */
-        public byte enable;
-
-        /*! 登录验证开关。 */
-        public byte enable_verify;
-
-        /*! 登录用户名。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 16)]
-        public string user_name;
-
-        /*! 登录密码。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 17)]
-        public string passwd;
-
-        /*! 上传目录。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 65)]
-        public string resv;
-
-
-    }
-
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential, CharSet = System.Runtime.InteropServices.CharSet.Ansi)]
-    public struct HttpClientParam1{
-    
-    /*! 服务器IP地址。 */
-        [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 16)]
-      public string ip;
-
-  /*! 服务器端口。 */
-      public ushort port;
-
-  /*! 服务URL。 */
-         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValTStr, SizeConst = 102)]
-      public string url;
-    
-    
-    
-    }
-
-  
-
-
 
 
 }
