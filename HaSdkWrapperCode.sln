@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaSdkWrapperCode", "HaSdkWr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaSdkWrapperCode.Http", "HaSdkWrapperCode.Http\HaSdkWrapperCode.Http.csproj", "{461185FC-68AD-4074-92BB-D57457B04EC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaSdkWrapperCode.Http.Linux", "HaSdkWrapperCode.Http.Linux\HaSdkWrapperCode.Http.Linux.csproj", "{F0E08C7A-0B75-457D-AA7E-D2A9968021FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaSdkWrapperCode.Http.Linux", "HaSdkWrapperCode.Http.Linux\HaSdkWrapperCode.Http.Linux.csproj", "{F0E08C7A-0B75-457D-AA7E-D2A9968021FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaSdkWrapperCode.Linux", "HaSdkWrapperCode.Linux\HaSdkWrapperCode.Linux.csproj", "{E6C7BCD1-C022-481B-9537-D1E366390C86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F0E08C7A-0B75-457D-AA7E-D2A9968021FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0E08C7A-0B75-457D-AA7E-D2A9968021FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0E08C7A-0B75-457D-AA7E-D2A9968021FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6C7BCD1-C022-481B-9537-D1E366390C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6C7BCD1-C022-481B-9537-D1E366390C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6C7BCD1-C022-481B-9537-D1E366390C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6C7BCD1-C022-481B-9537-D1E366390C86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
