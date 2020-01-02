@@ -25,6 +25,9 @@ namespace HaSdkWrapper
         private HA_AlarmRequestCb_t _alarmRequestCallback;
         private HA_FaceRecordCb_t _faceRecordQueryCallback;
         private HA_SnapshotCb_t _snapshotCallback;
+
+        private HA_GpioInputCb_t _gpioInputCb_t;
+
         #endregion callback defines
 
         #region events
@@ -36,6 +39,11 @@ namespace HaSdkWrapper
         /// 收到人脸抓拍触发的事件
         /// </summary>
         public event EventHandler<FaceCapturedEventArgs> FaceCaptured;
+        /// <summary>
+        /// 收到刷卡获取伟根号或GPIO事件
+        /// </summary>
+        public event EventHandler<WeiGangno> egGpioInput;
+
         /// <summary>
         /// 搜索设备得到一条结果时触发的事件
         /// </summary>
@@ -423,7 +431,7 @@ namespace HaSdkWrapper
         /// <param name="wgNo">韦根卡号</param>
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否添加成功</returns>
-        public bool AddFace(string personID, string personName, int personRole, string picPath, uint wgNo, uint effectTime)
+        public bool AddFace(string personID, string personName, int personRole, string picPath, uint wgNo, uint effectTime, uint effectstarttime, byte ScheduleMode, String userParam)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (string.IsNullOrEmpty(picPath))
@@ -436,7 +444,7 @@ namespace HaSdkWrapper
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return false;
             }
-            return AddFace(personID, personName, personRole, File.ReadAllBytes(picPath), wgNo, effectTime);
+            return AddFace(personID, personName, personRole, File.ReadAllBytes(picPath), wgNo, effectTime, effectstarttime, ScheduleMode, userParam);
         }
         /// <summary>
         /// 添加一组图片到同一人员中
@@ -491,7 +499,7 @@ namespace HaSdkWrapper
         /// <param name="wgNo">韦根卡号</param>
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否添加成功</returns>
-        public bool AddFace(string personID, string personName, int personRole, byte[] picData, uint wgNo, uint effectTime)
+        public bool AddFace(string personID, string personName, int personRole, byte[] picData, uint wgNo, uint effectTime, uint effectstarttime, byte ScheduleMode, String userParam)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (picData == null)
@@ -520,6 +528,9 @@ namespace HaSdkWrapper
             ff.faceID = Converter.ConvertStringToUTF8(personID, 20);
             ff.faceName = Converter.ConvertStringToUTF8(personName, 16);
             ff.role = personRole;
+            ff.effectStartTime = effectstarttime;
+            ff.ScheduleMode = ScheduleMode;
+            ff.userParam = Converter.ConvertStringToUTF8(userParam, 68);
             IntPtr picDataPtr = Marshal.AllocHGlobal(picData.Length);
             Marshal.Copy(picData, 0, picDataPtr, picData.Length);
             int ret = NativeMethods.HA_AddJpgFace(_cam, ref ff, picDataPtr, picData.Length);
@@ -528,6 +539,25 @@ namespace HaSdkWrapper
                 lastErrorCode = ret;
             return ret == 0;
         }
+
+        /// <summary>
+        /// 检测图片
+        /// </summary>
+        /// <param name="picData"></param>
+        /// <returns></returns>
+        public int HA_FaceJpgLegal(byte[] picData)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            IntPtr picDataPtr = Marshal.AllocHGlobal(picData.Length);
+            Marshal.Copy(picData, 0, picDataPtr, picData.Length);
+            int ret = NativeMethods.HA_FaceJpgLegal(picDataPtr, picData.Length);
+            Marshal.FreeHGlobal(picDataPtr);
+            if (ret != 0)
+                lastErrorCode = ret;
+            return ret;
+        }
+
         /// <summary>
         /// 添加一组图片到同一人员中
         /// </summary>
@@ -968,7 +998,7 @@ namespace HaSdkWrapper
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否添加成功</returns>
         [Obsolete]
-        public bool AddFace(string personID, string personName, int personRole, Bitmap pic, uint wgNo, uint effectTime)
+        public bool AddFace(string personID, string personName, int personRole, Bitmap pic, uint wgNo, uint effectTime, uint effectstarttime, byte ScheduleMode, String userParam)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (pic == null)
@@ -980,7 +1010,8 @@ namespace HaSdkWrapper
             pic.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             byte[] bmpBytes = ms.ToArray();
             ms.Close();
-            return AddFace(personID, personName, personRole, bmpBytes, wgNo, effectTime);
+
+            return AddFace(personID, personName, personRole, bmpBytes, wgNo, effectTime, effectstarttime, ScheduleMode, userParam);
         }
         /// <summary>
         /// 添加一组图片到同一人员中
@@ -1200,7 +1231,7 @@ namespace HaSdkWrapper
         /// <param name="wgNo">韦根卡号</param>
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否修改成功</returns>
-        public bool ModifyFace(string personID, string personName, int personRole, string picPath, uint wgNo, uint effectTime)
+        public bool ModifyFace(string personID, string personName, int personRole, string picPath, uint wgNo, uint effectTime, uint effectStartTime, byte ScheduleMode)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (string.IsNullOrEmpty(picPath))
@@ -1213,7 +1244,7 @@ namespace HaSdkWrapper
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return false;
             }
-            return ModifyFace(personID, personName, personRole, File.ReadAllBytes(picPath), wgNo, effectTime);
+            return ModifyFace(personID, personName, personRole, File.ReadAllBytes(picPath), wgNo, effectTime, effectStartTime, ScheduleMode);
         }
         /// <summary>
         /// 更新一组图片到同一人员中
@@ -1268,7 +1299,7 @@ namespace HaSdkWrapper
         /// <param name="wgNo">韦根卡号</param>
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否修改成功</returns>
-        public bool ModifyFace(string personID, string personName, int personRole, byte[] picData, uint wgNo, uint effectTime)
+        public bool ModifyFace(string personID, string personName, int personRole, byte[] picData, uint wgNo, uint effectTime, uint effectStartTime, byte ScheduleMode)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (picData == null)
@@ -1297,6 +1328,8 @@ namespace HaSdkWrapper
             ff.faceID = Converter.ConvertStringToUTF8(personID, 20);
             ff.faceName = Converter.ConvertStringToUTF8(personName, 16);
             ff.role = personRole;
+            ff.effectStartTime = effectStartTime;
+            ff.ScheduleMode = ScheduleMode;
             IntPtr picDataPtr = Marshal.AllocHGlobal(picData.Length);
             Marshal.Copy(picData, 0, picDataPtr, picData.Length);
             int ret = NativeMethods.HA_ModifyJpgFace(_cam, ref ff, picDataPtr, picData.Length);
@@ -1387,7 +1420,7 @@ namespace HaSdkWrapper
         /// <param name="effectTime">过期时间 0xFFFFFFFF永不过期 0永久失效 其他值UTC秒数</param>
         /// <returns>是否修改成功</returns>
         [Obsolete]
-        public bool ModifyFace(string personID, string personName, int personRole, Bitmap pic, uint wgNo, uint effectTime)
+        public bool ModifyFace(string personID, string personName, int personRole, Bitmap pic, uint wgNo, uint effectTime, uint effectStartTime, byte ScheduleMode)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             if (pic == null)
@@ -1399,7 +1432,7 @@ namespace HaSdkWrapper
             pic.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
             byte[] bmpBytes = ms.ToArray();
             ms.Close();
-            return ModifyFace(personID, personName, personRole, bmpBytes, wgNo, effectTime);
+            return ModifyFace(personID, personName, personRole, bmpBytes, wgNo, effectTime, effectStartTime, ScheduleMode);
         }
         /// <summary>
         /// 修改一组图片到同一人员中
@@ -1975,7 +2008,15 @@ namespace HaSdkWrapper
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return null;
             }
-            int ret = NativeMethods.HA_QueryByRole(_cam, role, pageNo, pageSize, fetchFeatures, false);
+            RecordQueryCondition condition = new RecordQueryCondition();
+            short conditionflag = 0;
+
+            QueryCondition rc = ConvertRecordConditionToNativenew(condition, ref conditionflag);
+            int ret = NativeMethods.HA_QueryFaceEx(_cam, role, pageNo, pageSize, fetchFeatures, false, conditionflag, 0, ref rc);
+
+
+
+            //int ret = NativeMethods.HA_QueryByRole(_cam, role, pageNo, pageSize, fetchFeatures, false);
             if (ret != 0)
             {
                 lastErrorCode = ret;
@@ -1998,7 +2039,7 @@ namespace HaSdkWrapper
         /// <param name="totalCount">符合条件的记录总数</param>
         /// <param name="timeOutInMilli">超时时间</param>
         /// <returns>查询到的模板数据；可能返回null，返回null时可能是出错了，需要排查</returns>
-        public FaceEntity[] QueryFaces(int pageNo, int pageSize, int role, bool fetchFeatures, ref int totalCount, int timeOutInMilli)
+        public FaceEntity[] QueryFaces(int pageNo, int pageSize, int role, bool fetchFeatures, ref int totalCount, int timeOutInMilli, RecordQueryCondition condition, short query_mode)
         {
             lastErrorCode = NativeConstants.ERR_NONE;
             totalCount = 0;
@@ -2008,7 +2049,7 @@ namespace HaSdkWrapper
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return null;
             }
-            if (pageSize < 1 || pageSize > 100)
+            if (pageSize < 1 || pageSize > 10000)
             {
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return null;
@@ -2018,7 +2059,14 @@ namespace HaSdkWrapper
                 lastErrorCode = NativeConstants.ERR_INVALID_PARAM;
                 return null;
             }
-            int ret = NativeMethods.HA_QueryByRole(_cam, role, pageNo, pageSize, fetchFeatures, false);
+
+
+            short conditionflag = 0;
+
+            QueryCondition rc = ConvertRecordConditionToNativenew(condition, ref conditionflag);
+            int ret = NativeMethods.HA_QueryFaceEx(_cam, role, pageNo, pageSize, fetchFeatures, false, conditionflag, query_mode, ref rc);
+
+            //int ret = NativeMethods.HA_QueryByRole(_cam, role, pageNo, pageSize, fetchFeatures, false);
             if (ret != 0)
             {
                 lastErrorCode = ret;
@@ -2032,6 +2080,226 @@ namespace HaSdkWrapper
             lastErrorCode = NativeConstants.ERR_TIMEOUT;
             return null;
         }
+
+        /// <summary>
+        /// 获取时间调度
+        /// </summary>
+        /// 
+
+        public KindSchedule[] GetScheduleModeCfg()
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int size = Marshal.SizeOf(typeof(KindSchedule)) * 5;
+
+            IntPtr pBuff = Marshal.AllocHGlobal(size); // 
+            int ScheduleCount = 0;
+
+            int ret = NativeMethods.HA_GetScheduleModeCfg(_cam, pBuff, ref ScheduleCount);
+
+
+
+            KindSchedule[] pClass = new KindSchedule[ScheduleCount];
+
+            for (int i = 0; i < ScheduleCount; i++)
+            {
+
+                IntPtr ptr = new IntPtr(pBuff.ToInt64() + Marshal.SizeOf(typeof(KindSchedule)) * i);
+
+                pClass[i] = (KindSchedule)Marshal.PtrToStructure(ptr, typeof(KindSchedule));
+
+            }
+
+            Marshal.FreeHGlobal(pBuff);
+
+
+
+
+
+
+            return pClass;
+        }
+        /// <summary>
+        /// 设置时间调度
+        /// </summary>
+        /// 
+        public Boolean SetScheduleModeCfg(KindSchedule[] kind)
+        {
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int size = Marshal.SizeOf(typeof(KindSchedule)) * kind.Length;
+
+            IntPtr pBuff = Marshal.AllocHGlobal(size); // 
+
+
+
+            //byte[] buffer = new byte[size];
+
+
+
+
+
+            for (int i = 0; i < kind.Length; i++)
+            {
+
+                IntPtr ptr = new IntPtr(pBuff.ToInt64() + Marshal.SizeOf(typeof(KindSchedule)) * i);
+
+
+                Marshal.StructureToPtr(kind[i], ptr, true);
+                //Marshal.Copy(ptr,pBuff, 0, size);
+            }
+
+            int ret = NativeMethods.HA_SetScheduleModeCfg(_cam, pBuff, kind.Length);
+            Marshal.FreeHGlobal(pBuff);
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+            return true;
+
+        }
+        /// <summary>
+        /// 查看过期自动清理开关
+        /// </summary>
+        public bool GetAutoCleanEnable()
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int enable = 0;
+
+            int ret = NativeMethods.HA_GetAutoCleanEnable(_cam, ref enable);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return enable == 0 ? false : true;
+        }
+
+        /// <summary>
+        /// 设置过期自动清理开关
+        /// </summary>
+        public bool SetAutoCleanEnable(int enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+
+            int ret = NativeMethods.HA_SetAutoCleanEnable(_cam, enable);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return true;
+        }
+
+
+
+        /// <summary>
+        /// 查看未带安全帽禁止通行
+        /// </summary>
+        public bool GetProhibitSafetyhat()
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int enable = 0;
+
+            int ret = NativeMethods.HA_GetProhibitSafetyhat(_cam, ref enable);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return enable == 0 ? false : true;
+        }
+
+        /// <summary>
+        /// 设置未带安全帽禁止通行
+        /// </summary>
+        public bool SetProhibitSafetyhat(int enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+
+            int ret = NativeMethods.HA_SetProhibitSafetyhat(_cam, enable);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return true;
+        }
+        /// <summary>
+        /// 获取外网穿透
+        /// </summary>
+        /// <param name="extr"></param>
+        /// <returns></returns>
+        public bool HA_GetExtranetParam(ref ExtranetParam extr)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+
+            int ret = NativeMethods.HA_GetExtranetParam(_cam, ref extr);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return true;
+        }
+        /// <summary>
+        /// 设置外网穿透
+        /// </summary>
+        /// <param name="extr"></param>
+        /// <returns></returns>
+        public bool HA_GetExtranetParam(ExtranetParam extr)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+
+            int ret = NativeMethods.HA_SetExtranetParam(_cam, extr);
+
+            if (ret != 0)
+            {
+                lastErrorCode = ret;
+                return false;
+            }
+
+
+
+
+            return true;
+        }
+
+
+
+
+
         /// <summary>
         /// 获取设备网络信息
         /// </summary>
@@ -2691,6 +2959,45 @@ namespace HaSdkWrapper
             }
             return true;
         }
+
+
+        /// <summary>
+        /// 获取继电器闭合持续时间
+        /// </summary>
+        /// <returns></returns>
+        public bool HA_GetAlarmDuration(ref int duration)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            byte mm = 0;
+            int _ret = NativeMethods.HA_GetAlarmDuration(_cam, ref duration);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置继电器闭合持续时间
+        /// </summary>
+        /// <param name="mm"></param>
+        /// <returns></returns>
+        public bool HA_SetAlarmDuration(int duration)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetAlarmDuration(_cam, duration);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
         /// <summary>
         /// 停止录像
         /// </summary>
@@ -2748,6 +3055,625 @@ namespace HaSdkWrapper
             }
             return true;
         }
+        /// <summary>
+        /// 获取活体检测开关
+        /// </summary>
+        /// <returns>是否开启了活体检测</returns>
+        public bool GetAliveDetectEnable()
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            bool ret = false;
+            int _ret = NativeMethods.HA_GetAliveDetectEnable(_cam, ref ret);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return ret;
+        }
+        /// <summary>
+        /// 开启或关闭活体检测
+        /// </summary>
+        /// <param name="enable">是否开启活体检测</param>
+        /// <returns>操作是否成功</returns>
+        public bool SetAliveDetectEnable(bool enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetAliveDetectEnable(_cam, enable);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 获取内置音频
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="itemNum"></param>
+        /// <returns></returns>
+        public AudioItem[] HA_GetAudioList(ref int itemNum)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int size = Marshal.SizeOf(typeof(AudioItem)) * 5;
+
+            IntPtr pBuff = Marshal.AllocHGlobal(size); // 
+
+
+            int _ret = NativeMethods.HA_GetAudioList(_cam, pBuff, 5, ref itemNum);
+            if (_ret != 0)
+            {
+
+                lastErrorCode = _ret;
+                return null;
+            }
+            AudioItem[] pClass = new AudioItem[itemNum];
+
+            for (int i = 0; i < itemNum; i++)
+            {
+
+                IntPtr ptr = new IntPtr(pBuff.ToInt64() + Marshal.SizeOf(typeof(AudioItem)) * i);
+
+                pClass[i] = (AudioItem)Marshal.PtrToStructure(ptr, typeof(AudioItem));
+
+            }
+
+            Marshal.FreeHGlobal(pBuff);
+
+
+            return pClass;
+        }
+        /// <summary>
+        /// 播放内置音频
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        public bool HA_TestAudioItemByName(ref AudioItem items)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_TestAudioItemByName(_cam, ref items);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取LCD显示屏显示项
+        /// </summary>
+        /// <param name="itme"></param>
+        /// <returns></returns>
+        public bool HA_GetLcdDisplayItems(ref int itme)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetLcdDisplayItems(_cam, ref itme);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 设置显示项
+        /// </summary>
+        /// <param name="itme"></param>
+        /// <returns></returns>
+        public bool HA_SetLcdDisplayItems(int itme)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetLcdDisplayItems(_cam, itme);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+        /// <summary>
+        /// 获取上传设置
+        /// </summary>
+        /// <param name="UploadParam"></param>
+        /// <returns></returns>
+        public bool GetUploadConfig(ref ClientParam UploadParam)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetUploadConfig(_cam, ref UploadParam);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置上传
+        /// </summary>
+        /// <param name="UploadParam"></param>
+        /// <returns></returns>
+        public bool SetUploadConfig(ref ClientParam UploadParam)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetUploadConfig(_cam, ref UploadParam);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+        /// <summary>
+        /// 获取安全帽检测开关
+        /// </summary>
+        /// <returns>是否开启了安全帽检测</returns>
+        public bool GetHatDetectEnable()
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            bool ret = false;
+            int _ret = NativeMethods.HA_GetHatDetectEnable(_cam, ref ret);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return ret;
+        }
+        /// <summary>
+        /// 开启或关闭安全帽检测
+        /// </summary>
+        /// <param name="enable">是否开启安全帽检测</param>
+        /// <returns>操作是否成功</returns>
+        public bool SetHatDetectEnable(bool enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetHatDetectEnable(_cam, enable);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取镜像显示开关
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <returns></returns>
+        public bool HA_GetflipEnable(ref byte enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetflipEnable(_cam, ref enable);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 设置镜像显示开关
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <returns></returns>
+        public bool HA_SetflipEnable(byte enable)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetflipEnable(_cam, enable);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取显示屏亮度
+        /// </summary>
+        /// <param name="led_level"></param>
+        /// <returns></returns>
+        public bool HA_GetLedLevel(ref byte led_level)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetLedLevel(_cam, ref led_level);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 设置显示屏亮度
+        /// </summary>
+        /// <param name="led_level"></param>
+        /// <returns></returns>
+        public bool HA_SetLedLevel(byte led_level)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetLedLevel(_cam, led_level);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+        /// <summary>
+        /// 获取上传方式域名
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        public bool HA_GetUploadDomain(byte[] domain)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetUploadDomain(_cam, domain);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 设置上传方式域名
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        public bool HA_SetUploadDomain(byte[] domain)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetUploadDomain(_cam, domain);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 获取外网穿透域名
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        public bool HA_GetExtranetDomain(byte[] domain)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_GetExtranetDomain(_cam, domain);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 设置外网穿透域名
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <returns></returns>
+        public bool HA_SetExtranetDomain(byte[] domain)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetExtranetDomain(_cam, domain);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 获取宽动态
+        /// </summary>
+        /// <returns></returns>
+        public bool GetWDR(ref byte enable, ref HourSchedule t_wdr)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_GetWDR(_cam, ref enable, ref t_wdr);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置宽动态
+        /// </summary>
+        /// <param name="enable">0:关 1：常开 2:按时间段开关</param>
+        /// <returns>操作是否成功</returns>
+        public bool SetWDR(byte enable, HourSchedule t_wdr)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            int _ret = NativeMethods.HA_SetWDR(_cam, enable, t_wdr);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置屏幕显示
+        /// </summary>
+        /// <param name="screen_title"></param>
+        /// <returns></returns>
+        public bool SetScreenOsdTitle(string screen_title)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            UTF8Encoding utf8 = new UTF8Encoding();
+            Byte[] encodedBytes = utf8.GetBytes(screen_title);
+
+
+
+            int _ret = NativeMethods.HA_SetScreenOsdTitle(_cam, encodedBytes);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 播放语音
+        /// </summary>
+        /// <param name="screen_title"></param>
+        /// <returns></returns>
+        public bool TTSPlayAudio(string screen_title)
+        {
+            lastErrorCode = NativeConstants.ERR_NONE;
+            UTF8Encoding utf8 = new UTF8Encoding();
+            Byte[] encodedBytes = utf8.GetBytes(screen_title);
+
+
+
+            int _ret = NativeMethods.HA_TTSPlayAudio(_cam, encodedBytes);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取设备信息
+        /// </summary>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public bool HA_GetFaceSystemVersionEx(ref SystemVersionInfo version)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_GetFaceSystemVersionEx(_cam, ref version);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// 获取去重复
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public bool HA_GetDereplicationgConfig(ref int enable, ref int timeout)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_GetDereplicationgConfig(_cam, ref enable, ref timeout);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 设置去重复
+        /// </summary>
+        /// <param name="enable"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public bool HA_SetDereplicationEnable(int enable, int timeout)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_SetDereplicationEnable(_cam, enable, timeout);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 获取设备音量
+        /// </summary>
+        /// <param name="audio_volume"></param>
+        /// <returns></returns>
+        public bool HA_GetAudioVolume(ref int audio_volume)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_GetAudioVolume(_cam, ref audio_volume);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置设备音量
+        /// </summary>
+        /// <param name="audio_volume"></param>
+        /// <returns></returns>
+        public bool HA_SetAudioVolume(int audio_volume)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_SetAudioVolume(_cam, audio_volume);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// 获取比对成功显示项
+        /// </summary>
+        /// <param name="Options"></param>
+        /// <returns></returns>
+        public bool HA_GetPersonDisplayOptions(ref int Options)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_GetPersonDisplayOptions(_cam, ref Options);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 设置比对成功显示项
+        /// </summary>
+        /// <param name="Options"></param>
+        /// <returns></returns>
+        public bool HA_SetPersonDisplayOptions(int Options)
+        {
+
+
+            lastErrorCode = NativeConstants.ERR_NONE;
+
+            int _ret = NativeMethods.HA_SetPersonDisplayOptions(_cam, Options);
+            if (_ret != 0)
+            {
+                lastErrorCode = _ret;
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+
+
+
+
+        public static byte[] StructToBytes(object structObj, int size = 0)
+        {
+            if (size == 0)
+            {
+                size = Marshal.SizeOf(structObj); //得到结构体大小
+            }
+            IntPtr buffer = Marshal.AllocHGlobal(size);  //开辟内存空间
+            try
+            {
+                Marshal.StructureToPtr(structObj, buffer, false);   //填充内存空间
+                byte[] bytes = new byte[size];
+                Marshal.Copy(buffer, bytes, 0, size);   //填充数组
+                return bytes;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);   //释放内存
+            }
+        }
+        public static object BytesToStruct(byte[] bytes, Type strcutType, int nSize)
+        {
+            if (bytes == null)
+            {
+                //Debug.LogError("null bytes!!!!!!!!!!!!!");
+            }
+            int size = Marshal.SizeOf(strcutType);
+            IntPtr buffer = Marshal.AllocHGlobal(nSize);
+            //Debug.LogError("Type: " + strcutType.ToString() + "---TypeSize:" + size + "----packetSize:" + nSize);
+            try
+            {
+                Marshal.Copy(bytes, 0, buffer, nSize);
+                return Marshal.PtrToStructure(buffer, strcutType);
+            }
+            catch (Exception ex)
+            {
+                // Debug.LogError("Type: " + strcutType.ToString() + "---TypeSize:" + size + "----packetSize:" + nSize);
+                return null;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+
+
+
         #endregion methods
 
         private void HookCallbackEx(IntPtr cam)
@@ -2757,6 +3683,11 @@ namespace HaSdkWrapper
 
             _faceRecoCallback = FaceCaptureEventCb;
             NativeMethods.HA_RegFaceRecoCb(cam, _faceRecoCallback, IntPtr.Zero);
+
+            _gpioInputCb_t = GpioInputCb;
+            NativeMethods.HA_RegGpioInputCb(cam, _gpioInputCb_t, IntPtr.Zero);
+
+
 
             _serialDataCallback = SerialDataReadCb;
             NativeMethods.HA_RegReadTSerialCbEx(_cam, _serialDataCallback, 0);
@@ -2897,6 +3828,14 @@ namespace HaSdkWrapper
             FaceRecoInfo fri = (FaceRecoInfo)Marshal.PtrToStructure(captureData, typeof(FaceRecoInfo));
             OnFaceCaptured(ConvertStructureToEventArgs(fri));
         }
+
+        private void GpioInputCb(IntPtr cam, int type, uint data, IntPtr usrParam)
+        {
+
+
+            OnegGpioInput(egGpioInputCbtoweiganno(type, data));
+        }
+
         private RecordCondition ConvertRecordConditionToNative(RecordQueryCondition rqc)
         {
             RecordCondition rc = new RecordCondition();
@@ -2904,6 +3843,7 @@ namespace HaSdkWrapper
             if (rqc.ByAge)
             {
                 rc.condition_flag |= RecordQueryFlag.RECORD_QUERY_FLAG_AGE;
+
                 rc.age_start = (byte)rqc.AgeStart;
                 rc.age_end = (byte)rqc.AgeEnd;
             }
@@ -2954,8 +3894,73 @@ namespace HaSdkWrapper
             }
             return rc;
         }
+
+        private QueryCondition ConvertRecordConditionToNativenew(RecordQueryCondition rqc, ref short condition_flag)
+        {
+
+            QueryCondition qc = new QueryCondition();
+
+            if (rqc.ById)
+            {
+                condition_flag |= (short)ConditionFlag.QUERY_BY_ID;
+                byte[] idStrBytes = Encoding.UTF8.GetBytes(rqc.PersonId);
+                qc.faceID = new byte[20];
+                Array.Copy(idStrBytes, qc.faceID, Math.Min(idStrBytes.Length, 20));
+
+
+            }
+            if (rqc.ByName)
+            {
+                condition_flag |= (short)ConditionFlag.QUERY_BY_NAME;
+                byte[] nameStrBytes = Encoding.UTF8.GetBytes(rqc.PersonName);
+                qc.faceName = new byte[20];
+                Array.Copy(nameStrBytes, qc.faceName, Math.Min(nameStrBytes.Length, 20));
+
+
+            }
+
+            if (rqc.WgNo)
+            {
+                condition_flag |= (short)ConditionFlag.QUERY_BY_WGNO;
+                qc.wgCardNO = Convert.ToUInt32(rqc.WgNoc);
+
+
+            }
+            if (rqc.ByCaptureTime2)
+            {
+                condition_flag |= (short)ConditionFlag.QUERY_BY_EFFECT_TIME;
+                qc.timeStart = Convert.ToUInt32(rqc.TimeStart2.ToUniversalTime().Subtract(DateTime.Parse("1970-1-1")).TotalSeconds);
+                qc.timeEnd = Convert.ToUInt32(rqc.TimeEnd2.ToUniversalTime().Subtract(DateTime.Parse("1970-1-1")).TotalSeconds);
+            }
+
+            if (rqc.ByCaptureTime1)
+            {
+                condition_flag |= (short)ConditionFlag.QUERY_BY_EFFECT_START_TIME;
+                qc.time1Start = Convert.ToUInt32(rqc.Time1Start.ToUniversalTime().Subtract(DateTime.Parse("1970-1-1")).TotalSeconds);
+                qc.time1End = Convert.ToUInt32(rqc.Time1End.ToUniversalTime().Subtract(DateTime.Parse("1970-1-1")).TotalSeconds);
+
+
+            }
+
+
+
+
+
+            return qc;
+        }
+
+        private WeiGangno egGpioInputCbtoweiganno(int type, uint data)
+        {
+            WeiGangno wei = new WeiGangno();
+            wei.type = type;
+            wei.data = data;
+            return wei;
+        }
+
+
         private FaceCapturedEventArgs ConvertStructureToEventArgs(FaceRecoInfo info)
         {
+
             FaceCapturedEventArgs e = new FaceCapturedEventArgs();
             e.SequenceID = info.sequence;
             e.CameraID = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.camId));
@@ -2968,6 +3973,31 @@ namespace HaSdkWrapper
             e.Age = info.age;
             e.QValue = info.qValue;
             e.PersonRole = info.matchRole;
+            e.living = info.living;
+
+            e.hatColour = info.hatColour;
+            e.dev_id = info.dev_id;
+            e.existIDCard = info.existIDCard;
+            e.IDCardnumber = info.IDCardnumber;
+            e.IDCardname = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.IDCardname));
+            e.IDCardsex = info.IDCardsex;
+            e.IDCardnational = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.IDCardnational));
+            e.IDCardbirth = info.IDCardbirth;
+            e.IDCardresidence_address = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.IDCardresidence_address));
+            e.IDCardorgan_issue = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.IDCardorgan_issue));
+            e.IDCardvalid_date_start = info.IDCardvalid_date_start;
+            e.IDCardvalid_date_end = info.IDCardvalid_date_end;
+            e.matchtype = info.math_type;
+
+            e.userParam = info.userParam;
+
+            e.wgCardNO = info.wgCardNO;
+            e.wgCardNOLong = info.wgCardNOLong;
+
+
+            // Console.WriteLine ("CameraID" + e.CameraID + ",是否比对成功" + e.IsPersonMatched + "mactype" + info.math_type + "addrid" + e.AddrID + "userParam"+e.userParam);
+
+            Console.WriteLine("wgcard" + e.wgCardNO + "," + e.wgCardNOLong);
             if (e.IsPersonMatched)
             {
                 e.PersonID = Encoding.Default.GetString(Converter.ConvertStringToDefault(info.matchPersonId));
@@ -3062,6 +4092,13 @@ namespace HaSdkWrapper
         {
             if (FaceCaptured != null)
                 FaceCaptured.Invoke(this, e);
+        }
+
+
+        protected virtual void OnegGpioInput(WeiGangno e)
+        {
+            if (egGpioInput != null)
+                egGpioInput.Invoke(this, e);
         }
         private static void OnDeviceDiscovered(DeviceDiscoverdEventArgs e)
         {
